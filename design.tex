@@ -36,7 +36,7 @@
 
 \section{Introduction}
 Reversi is an old strategy game played on an 8x8 board. We will be implementing
-an online version of the game. Our implementation will feature a GUI and a simple
+an online version of the game in C++. Our implementation will feature a GUI and a simple
 min-max AI. The project will be done in three major releases: server, AI, and GUI.
 We will be using Github and Pivotal Tracker to manage the project. Pivotal Tracker
 is an online tool that helps manage SCRUM Backlogs.
@@ -53,8 +53,36 @@ must be at least one white piece in between them. Dark captures the white pieces
 on the line.
 
 \section{High Level Design}
+The following are classes in our application:
+\begin{itemize}
+\item Game State   - Represents a valid configuration of the Reversi board
+\item Location     - Represents a coordinate on the game board
+\item Game Engine  - Handles game flow, changing game state, and AI
+\item Parser       - Reads commands in the network protocol 
+\item GUI          - Renders interface
+\item Server       - Controller class
+\item Client       - Connects to Server over telnet
+\end{itemize}
 
 \section{Low Level Design}
+
+\subsection{Game State}
+The reversi board is an 8x8 grid. We will represent the board with an 8x8 matrix, 
+with 0 for black and 1 for white. The Game State is a simple wrapper for a matrix
+The AI must also build a tree where each node represents a state of the game.    
+
+\subsection{Game Engine}
+The purpose of the game engine is to handle the high level flow of the game. The engine
+can control human vs human, and human vs AI games. It has public methods move(location) and ai\_move().
+The engine should have private methods, is\_valid(state) to check for valid game states, and is\_over(state)
+to check for end game states. 
+
+\subsection{Parser}
+\subsection{GUI}
+\subsection{Server}
+\subsection{Client}
+
+
 
 \section{Conclusion} % benefits, assumptions, risks/issues
 
