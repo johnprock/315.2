@@ -36,7 +36,7 @@
 
 \section{Introduction}
 Reversi is an old strategy game played on an 8x8 board. We will be implementing
-an online version of the game in C++. Our implementation will feature a GUI and a simple
+an online version of the game in Java. Our implementation will feature a GUI and a simple
 min-max AI. The project will be done in three major releases: server, AI, and GUI.
 We will be using Github and Pivotal Tracker to manage the project. Pivotal Tracker
 is an online tool that helps manage SCRUM Backlogs.
@@ -59,7 +59,7 @@ The following are classes in our application:
 \item Location     - Represents a coordinate on the game board
 \item Game Engine  - Handles game flow, changing game state, and AI
 \item Parser       - Reads commands in the network protocol 
-\item GUI          - Renders interface
+\item GUI          - Renders interface, will have many subclasses for board, menu, etc...
 \item Server       - Controller class
 \item Client       - Connects to Server over telnet
 \end{itemize}
