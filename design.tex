@@ -73,11 +73,47 @@ The AI must also build a tree where each node represents a state of the game.
 
 \subsection{Game Engine}
 The purpose of the game engine is to handle the high level flow of the game. The engine
-can control human vs human, and human vs AI games. It has public methods move(location) and ai\_move().
-The engine should have private methods, is\_valid(state) to check for valid game states, and is\_over(state)
+can control human vs human, and human vs AI games. It has public methods move(location) and aiMove().
+The engine should have private methods, isValid(state) to check for valid game states, and isOver(state)
 to check for end game states. 
 
 \subsection{Parser}
+The parser reads text conforming to the network protocol and traslates into Game Engine actions.
+The parser will use recursive descent and a token of lookahead. The parser is an abstract class,
+the subclasses ServerParser and Client Parser will each implement a different grammar. 
+The grammar of the ServerParser is:
+\begin{verbatim}
+expr	 ::= command | move | comment
+command 
+  
+ 	 ::= EXIT | DISPLAY 
+| difficulty 
+| UNDO 
+| HUMAN-AI|AI-AI <server> <port> difficulty difficulty
+difficulty	 ::= EASY|MEDIUM|HARD
+move	 ::= column row
+comment	 ::= ; *
+column	 ::= a | b | c | d | e | f | g | h
+row	 ::= 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+digit	 ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+server	 ::= IP address or hostname
+port	 ::= digit { digit }
+\end{verbatim}
+
+\vspace{10 mm}
+The grammar of the ClientParser is:
+\begin{verbatim}
+ack	 ::= WELCOME | OK | move | ILLEGAL | comment
+move	 ::= column row
+column	 ::= a | b | c | d | e | f | g | h
+row	 ::= 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+comment	 ::= ; *
+\end{verbatim}
+
+Each parser should built in two phases. First recognize the grammar correctly, then 
+tie the production rules to actions in the Game Engine.
+
+
 \subsection{GUI}
 \subsection{Server}
 \subsection{Client}
