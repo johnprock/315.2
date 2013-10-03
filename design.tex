@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
+}
+
+
+\title{Reversi Online Design}
+\author{Patrick Rock}
+\date{October 2013}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+Reversi is an old strategy game played on an 8x8 board. We will be implementing
+an online version of the game. Our implementation will feature a GUI and a simple
+min-max AI. The project will be done in three major releases: server, AI, and GUI.
+We will be using Github and Pivotal Tracker to manage the project. Pivotal Tracker
+is an online tool that helps manage SCRUM Backlogs.
+
+\section{Game Rules}
+Developing a game requires a strong understanding of the rules. These rules will
+be implemented by a class, the Game Engine.
+Two players compete to have the most pieces on the board. 
+The game ends when neither player can move.
+The players take turns unless one player can't make a valid move. 
+The dark player moves first.
+Dark must play on a square with a straight occupied line to another dark piece. There 
+must be at least one white piece in between them. Dark captures the white pieces
+on the line.
+
+\section{High Level Design}
+
+\section{Low Level Design}
+
+\section{Conclusion} % benefits, assumptions, risks/issues
+
+\end{document}
+
