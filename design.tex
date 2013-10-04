@@ -115,12 +115,24 @@ tie the production rules to actions in the Game Engine.
 
 
 \subsection{GUI}
+Since we are building our application in Java, we will use Swing to build 
+our GUI. We may take advantage of swing concurrency depending on how 
+smoothly the project goes. 
+
 \subsection{Server}
+The server must parse incomming data from the client and respond.
+Before the GUI is implemented the Server shold display a plaintext representation 
+of the gameboard. This functionality could be offloaded into the Game Board object.
+The Game Engine will run inside the Server. The server will also contain the networking
+socket code.
+
 \subsection{Client}
-
-
+The client must parse data from the server and respond. The client will also
+implement the GUI. The client is a late addition.  
 
 \section{Conclusion} % benefits, assumptions, risks/issues
+We are assuming that Java Swing is the right choice for building out GUI.
+I don't have much experience with swing so this is an unknown. 
 
 \end{document}
 
