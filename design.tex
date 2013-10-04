@@ -26,7 +26,7 @@
 }
 
 
-\title{Reversi Online Design}
+\title{Reversi Online Design Documentation}
 \author{Patrick Rock}
 \date{October 2013}
 
@@ -62,6 +62,7 @@ The following are classes in our application:
 \item GUI          - Renders interface, will have many subclasses for board, menu, etc...
 \item Server       - Controller class
 \item Client       - Connects to Server over telnet
+\item 
 \end{itemize}
 
 \section{Low Level Design}
@@ -83,7 +84,7 @@ The parser will use recursive descent and a token of lookahead. The parser is an
 the subclasses ServerParser and Client Parser will each implement a different grammar. 
 The grammar of the ServerParser is:
 \begin{verbatim}
-expr	 ::= command | move | comment
+expr     ::= command | move | comment
 command 
   
  	 ::= EXIT | DISPLAY 
@@ -131,8 +132,19 @@ The client must parse data from the server and respond. The client will also
 implement the GUI. The client is a late addition.  
 
 \section{Conclusion} % benefits, assumptions, risks/issues
-We are assuming that Java Swing is the right choice for building out GUI.
-I don't have much experience with swing so this is an unknown. 
-
+The benefits of this project : 
+\begin{itemize}
+\item this Reversi Online game has several modes to play: Human vs Human; Human vs AI; AI vs AI. 
+\item This game has GUI which is easy to play
+\item Different AI allow user set the game difficulties
+\item This game has a lot of fun
+\end{itemize}
+Assuptions:
+\begin{itemize}
+\item Assumes the network is work 
+\item Assumes the server runs in Unix environment and client runs in a graphical environment
+\item Assumes the Java Swing is the right choice for building out GUI
+\end{itemize}
+Risks: Java GUI has run in the  graphical environment, otherwise, user can’t play this game
 \end{document}
 
