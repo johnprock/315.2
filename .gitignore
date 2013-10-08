@@ -17,4 +17,7 @@
 *.pdf
 *.log
 
+# Java fluff
+*.class
+
 .DS_Store
