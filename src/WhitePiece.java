@@ -9,7 +9,7 @@ public class WhitePiece extends Piece {
   } 
 
   public Piece flip() {
-    return BlackPiece(this);
+    return new BlackPiece(this);
   }
   
   public Boolean isBlack() {

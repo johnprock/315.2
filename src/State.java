@@ -11,18 +11,21 @@ public class State {
     this.board = state.board;
   }
 
-  Piece getPiece(int x, int y) {
-    return board[x][y];
+  Piece getPiece(int _x, int _y) {
+    return board[_x][_y];
   }
 
-  void flipPiece(int x, int y) {
-    board[x][y] = board[x][y].flip();
+  void flipPiece(int _x, int _y) {
+    board[_x][_y] = board[_x][_y].flip();
   }
 
-  void addBlack(int x, int y) {
+  void addBlack(int _x, int _y) {
+    Location loc = new Location(_x, _y);
+    board[_x][_y] = new BlackPiece(loc);
   }
 
-  void addWhite(int x, int y) {
-  }
- 
+  void addWhite(int _x, int _y) {
+    Location loc = new Location(_x, _y);
+    board[_x][_y] = new WhitePiece(loc);
+  } 
 }
