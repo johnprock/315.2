@@ -6,10 +6,10 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class ServerSocket {
+public class Server {
 
 	public static void main(String args[]) throws IOException {
-		final int portNumber = 81;
+		final int portNumber = 8123;
 		System.out.println("Creating server socket on port " + portNumber);
 		ServerSocket serverSocket = new ServerSocket(portNumber);
 		while (true) {
