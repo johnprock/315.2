@@ -1,14 +1,12 @@
-public class Piece {
-
-  Boolean color; // true for white
+public abstract class Piece {
   Location loc;
 
-  public Boolean isBlack() {
-    return !color;
-  }
-  public Boolean isWhite() {
-    return color;
-  }
+  public abstract Boolean isBlack();
+ 
+  public abstract Boolean isWhite();
+ 
+  public abstract Boolean isEmpty();
+
   public Location getLoc() {
     return loc;
   }
