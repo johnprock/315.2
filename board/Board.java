@@ -2,19 +2,28 @@
 public class Board {
 
 
+	public static void DrawSquare()	
+	{
+		System.out.print("_|");	
+	}
+
 	public static void DrawBoard()
 	{
+		String newLine = System.getProperty("line.separator");
 		System.out.println("  _ _ _ _ _ _ _ _");
-		System.out.println("1|_|_|_|_|_|_|_|_|");
-		System.out.println("2|_|_|_|_|_|_|_|_| ");
-		System.out.println("3|_|_|_|_|_|_|_|_| ");
-		System.out.println("4|_|_|_|_|_|_|_|_| ");
-		System.out.println("5|_|_|_|_|_|_|_|_| ");
-		System.out.println("6|_|_|_|_|_|_|_|_| ");
-		System.out.println("7|_|_|_|_|_|_|_|_| ");
-		System.out.println("8|_|_|_|_|_|_|_|_| ");
-		System.out.println("  a b c d e f g h  ");
+		
+		for (int row = 1; row<9; row++){
+			System.out.print(row+"|");
+			for (int column = 0; column<8; column++)
+			{
+				DrawSquare();
+			}
+			System.out.println("");
+		}
+		System.out.println("  a b c d e f g h");
 	}
+	
+	
 
 
     public static void main(String[] args) {
