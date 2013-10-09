@@ -11,21 +11,30 @@ public class State {
     this.board = state.board;
   }
 
-  Piece getPiece(int _x, int _y) {
+  public Piece getPiece(int _x, int _y) {
     return board[_x][_y];
   }
 
-  void flipPiece(int _x, int _y) {
+  public void flipPiece(int _x, int _y) {
     board[_x][_y] = board[_x][_y].flip();
   }
 
-  void addBlack(int _x, int _y) {
+  public void addBlack(int _x, int _y) {
     Location loc = new Location(_x, _y);
     board[_x][_y] = new BlackPiece(loc);
   }
 
-  void addWhite(int _x, int _y) {
+  public void addWhite(int _x, int _y) {
     Location loc = new Location(_x, _y);
     board[_x][_y] = new WhitePiece(loc);
+  }
+
+  public Boolean isValidMove(Piece _piece) {
+    return false;
+  }
+
+  // returns true if the game is in an end state
+  public Boolean isOver() {
+    return false;
   } 
 }
