@@ -1,4 +1,13 @@
 public class WhitePiece extends Piece {
+  WhitePiece(Location _loc) {
+    loc = _loc;
+  }
+  
+  // copy constructor copies location
+  WhitePiece(Piece _piece) { 
+    this.loc = _piece.loc;
+  } 
+  
   public Boolean isBlack() {
     return false;
   }

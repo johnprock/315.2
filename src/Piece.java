@@ -6,7 +6,7 @@ public abstract class Piece {
   public abstract Boolean isWhite();
  
   public abstract Boolean isEmpty();
-
+ 
   public Location getLoc() {
     return loc;
   }
