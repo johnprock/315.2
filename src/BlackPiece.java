@@ -6,7 +6,11 @@ public class BlackPiece extends Piece {
   // copy constructor copies location
   BlackPiece(Piece _piece) { 
     this.loc = _piece.loc;
-  }
+  }  
+
+  public Piece flip() {
+    return WhitePiece(this);
+  } 
 
   public Boolean isBlack() {
     return true;

@@ -16,6 +16,7 @@ public class State {
   }
 
   void flipPiece(int x, int y) {
+    board[x][y] = board[x][y].flip();
   }
 
   void addBlack(int x, int y) {

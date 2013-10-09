@@ -3,6 +3,10 @@ public class EmptyPiece extends Piece {
     loc = _loc;
   }  
 
+  public Piece flip() {
+    return this;
+  } 
+ 
   public Boolean isBlack() {
     return false;
   }

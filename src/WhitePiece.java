@@ -7,6 +7,10 @@ public class WhitePiece extends Piece {
   WhitePiece(Piece _piece) { 
     this.loc = _piece.loc;
   } 
+
+  public Piece flip() {
+    return BlackPiece(this);
+  }
   
   public Boolean isBlack() {
     return false;
