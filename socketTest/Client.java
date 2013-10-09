@@ -5,10 +5,10 @@ import java.util.*;
 public class Client{
 
 	public static void main(String args[]) throws IOException {
-		// System.out.println("what is the server ip address");
-		// Scanner in = new Scanner(System.in);
-		// final String host = in.nextLine();
-		final String host = "localhost";
+		System.out.println("what is the server ip address");
+		Scanner in = new Scanner(System.in);
+		final String host = in.nextLine();
+		//final String host = "localhost";
 		final int portNumber = 8123;
 		System.out.println("Creating socket to '" + host + "' on port " + portNumber);
 

@@ -1,15 +1,12 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.io.*;
+import java.net.*;
 
 public class Server {
-
 	public static void main(String args[]) throws IOException {
-		final int portNumber = 8123;
+        //find the server ip address
+		InetAddress thisIp =InetAddress.getLocalHost();
+        System.out.println("Server IP:"+thisIp.getHostAddress());
+        final int portNumber = 8123;
 		System.out.println("Creating server socket on port " + portNumber);
 		ServerSocket serverSocket = new ServerSocket(portNumber);
 		while (true) {
