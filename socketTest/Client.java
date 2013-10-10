@@ -1,16 +1,17 @@
 import java.io.*;
 import java.net.Socket;
 import java.util.*;
-
+import java.net.UnknownHostException;
 public class Client{
 
-	public static void main(String args[]) throws IOException {
+	public static void main(String args[]){
 		System.out.println("what is the server ip address");
 		Scanner in = new Scanner(System.in);
 		final String host = in.nextLine();
 		//final String host = "localhost";
 		final int portNumber = 8123;
-		System.out.println("Creating socket to '" + host + "' on port " + portNumber);
+	    try{
+            System.out.println("Creating socket to '" + host + "' on port " + portNumber);
 
 		while (true) {
 			Socket socket = new Socket(host, portNumber);
@@ -29,7 +30,12 @@ public class Client{
 			if ("exit".equalsIgnoreCase(userInput)) {
 				socket.close();
 				break;
-			}
+		    	}
+	    	}
+        }catch (UnknownHostException err) {
+			err.printStackTrace();
+		} catch (IOException err) {
+			err.printStackTrace();
 		}
 	}
 }
