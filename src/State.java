@@ -12,6 +12,12 @@ public class State {
       }
     }
 
+    // set middle square
+    addBlack(4,5);
+    addBlack(5,4);
+    addWhite(4,4);
+    addWhite(5,5);
+
   }
 
   // copy constructor
@@ -77,6 +83,11 @@ public class State {
     Boolean opColor = false; 
     Location loc = _piece.getLoc();
 
+    // pieces at the bottom of the board can't have a down line
+    if(loc.getY() == 7) {
+      return false;
+    }
+
     // at least one piece of opposite color
     Piece first = getPiece(loc.getX(), loc.getY()+1);    
     if( first.sameColor(_piece) ) {
@@ -104,6 +115,11 @@ public class State {
   private Boolean lineUp(Piece _piece) {
     Boolean opColor = false; 
     Location loc = _piece.getLoc();
+
+    // pieces at the top of the board can't have an up line
+    if(loc.getY() == 0) {
+      return false;
+    }
 
     // at least one piece of opposite color
     Piece first = getPiece(loc.getX(), loc.getY()-1);    
@@ -133,6 +149,10 @@ public class State {
     Boolean opColor = false; 
     Location loc = _piece.getLoc();
 
+    if(loc.getX() == 0) {
+      return false;
+    }
+
     // at least one piece of opposite color
     Piece first = getPiece(loc.getX()-1, loc.getY());    
     if( first.sameColor(_piece) ) {
@@ -160,6 +180,10 @@ public class State {
   private Boolean lineRight(Piece _piece) {
     Boolean opColor = false; 
     Location loc = _piece.getLoc();
+
+    if(loc.getX() == 7) {
+      return false;
+    }
 
     // at least one piece of opposite color
     Piece first = getPiece(loc.getX()+1, loc.getY());    
