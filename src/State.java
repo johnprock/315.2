@@ -47,8 +47,10 @@ public class State {
     // a move is valid if there is a line of pieces
     // of the opposing color terminated by a piece
     // of the same color
-    return lineDown(_piece) || lineUp(_piece) ||
-           lineLeft(_piece) || lineRight(_piece);
+    return //lineDown(_piece) || lineUp(_piece) ||
+          // lineLeft(_piece) || lineRight(_piece) ||
+           topLeftDiag(_piece) || topRightDiag(_piece) ||
+           bottomLeftDiag(_piece) || bottomRightDiag(_piece);
   }
 
   // returns true if the game is in an end state
@@ -77,6 +79,43 @@ public class State {
     } 
   
   return !canMove; 
+  }
+
+  private Boolean topLeftDiag(Piece _piece) {
+    Boolean line = false;
+    Location loc = _piece.getLoc();
+    Piece current = pieceTopLeft(_piece);
+
+    if( current.isEmpty() ) {
+      return false;
+    }
+
+    if( _piece.sameColor(current) ) {
+      return false;
+    }
+
+    current = pieceTopLeft(current);
+    while( !current.isEmpty() ) {
+      if( current.sameColor(_piece) ) {
+        line = true;
+        break;
+      }
+      current = pieceTopLeft(current);
+    }
+
+    return line;
+  }
+
+  private Boolean topRightDiag(Piece _piece) {
+    return false;
+  }
+
+  private Boolean bottomRightDiag(Piece _piece) {
+    return false;
+  }
+
+  private Boolean bottomLeftDiag(Piece _piece) {
+    return false;
   }
 
   private Boolean lineDown(Piece _piece) {
@@ -186,7 +225,7 @@ public class State {
     }
 
     // at least one piece of opposite color
-    Piece first = getPiece(loc.getX()+1, loc.getY());    
+     Piece first = getPiece(loc.getX()-1, loc.getY());      
     if( first.sameColor(_piece) ) {
       return false;
     }
@@ -208,4 +247,172 @@ public class State {
    return opColor;
   
   }
+
+  // these functions are used to get pieces relative
+  // to eachother, return empty if out of bounds
+  private Piece pieceUp(Piece _piece) {
+    Location loc = _piece.getLoc();
+    if (loc.getY()+1 > 7) 
+      return new EmptyPiece(_piece);
+
+    return getPiece(loc.getX(), loc.getY() + 1);
+  }
+
+  private Piece pieceDown(Piece _piece) {
+    Location loc = _piece.getLoc();
+    if (loc.getY()-1 < 0) 
+      return new EmptyPiece(_piece);
+
+    return getPiece(loc.getX(), loc.getY() - 1);
+  }
+
+  private Piece pieceLeft(Piece _piece) {
+    Location loc = _piece.getLoc();
+    if (loc.getY()+1 > 7) 
+      return new EmptyPiece(_piece);
+
+    return getPiece(loc.getX(), loc.getY() + 1);
+  }
+
+  private Piece pieceRight(Piece _piece) {
+    Location loc = _piece.getLoc();
+    if (loc.getX()+1 > 7) 
+      return new EmptyPiece(_piece);
+
+    return getPiece(loc.getX() + 1, loc.getY());
+  }
+
+  private Piece pieceTopLeft(Piece _piece) {
+    Location loc = _piece.getLoc();
+    if (loc.getX()-1 < 0) 
+      return new EmptyPiece(_piece);
+    if (loc.getY()+1 > 7)
+      return new EmptyPiece(_piece);
+
+    return getPiece(loc.getX()-1, loc.getY() + 1);
+  }
+
+  // diagonals
+  private Piece pieceTopRight(Piece _piece) {
+    Location loc = _piece.getLoc();
+    if (loc.getY()+1 > 7) 
+      return new EmptyPiece(_piece);
+    if (loc.getX()+1 > 7)
+      return new EmptyPiece(_piece);
+
+    return getPiece(loc.getX() + 1, loc.getY() + 1);
+  }
+
+  private Piece pieceBottomLeft(Piece _piece) {
+    Location loc = _piece.getLoc();
+    if (loc.getY()-1 < 0)
+      return new EmptyPiece(_piece);
+    if (loc.getX()-1 < 0)
+      return new EmptyPiece(_piece);
+
+    return getPiece(loc.getX() - 1, loc.getY() - 1);
+  }
+
+  private Piece pieceBottomRight(Piece _piece) {
+    Location loc = _piece.getLoc();
+    if (loc.getY()-1 < 0) 
+      return new EmptyPiece(_piece);
+    if(loc.getX()+1 > 7)
+      return new EmptyPiece(_piece);
+
+    return getPiece(loc.getX() + 1, loc.getY() - 1);
+  }
+
+  private interface Command {
+    public Piece get(Piece _piece);
+  }
+
+  private class Up implements Command {
+    public Piece get(Piece _piece) {
+      Location loc = _piece.getLoc();
+      if (loc.getY()+1 > 7) 
+        return new EmptyPiece(_piece);
+
+      return getPiece(loc.getX(), loc.getY() + 1);
+    } 
+  }
+
+  private class Down implements Command {
+    public Piece get(Piece _piece) {
+      Location loc = _piece.getLoc();
+      if (loc.getY()-1 < 0) 
+        return new EmptyPiece(_piece);
+
+      return getPiece(loc.getX(), loc.getY() - 1);
+    }
+  }
+
+  private class Left implements Command {
+    public Piece get(Piece _piece) {
+      Location loc = _piece.getLoc();
+      if (loc.getY()+1 > 7) 
+        return new EmptyPiece(_piece);
+
+      return getPiece(loc.getX(), loc.getY() + 1);
+    }
+  }
+
+  private class Right implements Command {
+    public Piece get(Piece _piece) {
+      Location loc = _piece.getLoc();
+      if (loc.getX()+1 > 7) 
+        return new EmptyPiece(_piece);
+
+      return getPiece(loc.getX() + 1, loc.getY());
+    }
+  }
+
+  private class UpLeft implements Command {
+    public Piece get(Piece _piece) {
+      Location loc = _piece.getLoc();
+      if (loc.getX()-1 < 0) 
+        return new EmptyPiece(_piece);
+      if (loc.getY()+1 > 7)
+        return new EmptyPiece(_piece);
+
+      return getPiece(loc.getX()-1, loc.getY() + 1);
+    }
+  }
+
+  private class UpRight implements Command {
+    public Piece get(Piece _piece) {
+      Location loc = _piece.getLoc();
+      if (loc.getY()+1 > 7) 
+        return new EmptyPiece(_piece);
+      if (loc.getX()+1 > 7)
+        return new EmptyPiece(_piece);
+
+      return getPiece(loc.getX() + 1, loc.getY() + 1);
+    }
+  }
+
+  private class DownLeft implements Command {
+    public Piece get(Piece _piece) {
+      Location loc = _piece.getLoc();
+      if (loc.getY()-1 < 0)
+        return new EmptyPiece(_piece);
+      if (loc.getX()-1 < 0)
+        return new EmptyPiece(_piece);
+
+      return getPiece(loc.getX() - 1, loc.getY() - 1);
+    }
+  }
+
+  private class DownRight implements Command {
+    public Piece get(Piece _piece) {
+    Location loc = _piece.getLoc();
+      if (loc.getY()-1 < 0) 
+        return new EmptyPiece(_piece);
+      if(loc.getX()+1 > 7)
+        return new EmptyPiece(_piece);
+
+      return getPiece(loc.getX() + 1, loc.getY() - 1);
+    }
+  }
 }
+

@@ -2,6 +2,10 @@ public class EmptyPiece extends Piece {
   EmptyPiece(Location _loc) {
     loc = _loc;
   }  
+  
+  EmptyPiece(Piece _piece) {
+    this.loc = _piece.loc;
+  }
 
   public Piece flip() {
     return this;
