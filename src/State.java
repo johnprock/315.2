@@ -47,10 +47,19 @@ public class State {
     // a move is valid if there is a line of pieces
     // of the opposing color terminated by a piece
     // of the same color
-    return //lineDown(_piece) || lineUp(_piece) ||
-          // lineLeft(_piece) || lineRight(_piece) ||
-           topLeftDiag(_piece) || topRightDiag(_piece) ||
-           bottomLeftDiag(_piece) || bottomRightDiag(_piece);
+    Command up        = new Up();
+    Command down      = new Down();
+    Command left      = new Left();
+    Command right     = new Right();
+    Command upleft    = new UpLeft();
+    Command upright   = new UpRight();
+    Command downleft  = new DownLeft();
+    Command downright = new DownRight();
+    
+    return lineCheck(_piece, up)      || lineCheck(_piece, down)    ||
+           lineCheck(_piece, left)    || lineCheck(_piece,right)    ||
+           lineCheck(_piece, upleft)  || lineCheck(_piece, upright) ||
+           lineCheck(_piece, downleft)|| lineCheck(_piece, downright);
   }
 
   // returns true if the game is in an end state
@@ -81,10 +90,11 @@ public class State {
   return !canMove; 
   }
 
-  private Boolean topLeftDiag(Piece _piece) {
+
+  private Boolean lineCheck(Piece _piece, Command c) {
     Boolean line = false;
     Location loc = _piece.getLoc();
-    Piece current = pieceTopLeft(_piece);
+    Piece current = c.get(_piece);
 
     if( current.isEmpty() ) {
       return false;
@@ -94,235 +104,19 @@ public class State {
       return false;
     }
 
-    current = pieceTopLeft(current);
+    current = c.get(current);
     while( !current.isEmpty() ) {
       if( current.sameColor(_piece) ) {
         line = true;
         break;
       }
-      current = pieceTopLeft(current);
+      current = c.get(current);
     }
 
     return line;
   }
 
-  private Boolean topRightDiag(Piece _piece) {
-    return false;
-  }
-
-  private Boolean bottomRightDiag(Piece _piece) {
-    return false;
-  }
-
-  private Boolean bottomLeftDiag(Piece _piece) {
-    return false;
-  }
-
-  private Boolean lineDown(Piece _piece) {
-    Boolean opColor = false; 
-    Location loc = _piece.getLoc();
-
-    // pieces at the bottom of the board can't have a down line
-    if(loc.getY() == 7) {
-      return false;
-    }
-
-    // at least one piece of opposite color
-    Piece first = getPiece(loc.getX(), loc.getY()+1);    
-    if( first.sameColor(_piece) ) {
-      return false;
-    }
-
-   // look for terminating piece of same color
-   for(int i=loc.getY()+2; i<8; i++) {
-     Piece linePiece = getPiece(loc.getX(), i);
-     
-     if( linePiece.sameColor(_piece) ) {
-       opColor = true;
-       break;
-     }
-     
-     if( linePiece.isEmpty() ) {
-       break;
-     }
-   }    
-
-   return opColor;
-
-  } 
-
-  private Boolean lineUp(Piece _piece) {
-    Boolean opColor = false; 
-    Location loc = _piece.getLoc();
-
-    // pieces at the top of the board can't have an up line
-    if(loc.getY() == 0) {
-      return false;
-    }
-
-    // at least one piece of opposite color
-    Piece first = getPiece(loc.getX(), loc.getY()-1);    
-    if( first.sameColor(_piece) ) {
-      return false;
-    }
-
-   // look for terminating piece of same color
-   for(int i=loc.getY()-2; i>=0; i--) {
-     Piece linePiece = getPiece(loc.getX(), i);
-     
-     if( linePiece.sameColor(_piece) ) {
-       opColor = true;
-       break;
-     }
-     
-     if( linePiece.isEmpty() ) {
-       break;
-     }
-   }    
-
-   return opColor;
- 
-  }
-
-  private Boolean lineLeft(Piece _piece) {
-    Boolean opColor = false; 
-    Location loc = _piece.getLoc();
-
-    if(loc.getX() == 0) {
-      return false;
-    }
-
-    // at least one piece of opposite color
-    Piece first = getPiece(loc.getX()-1, loc.getY());    
-    if( first.sameColor(_piece) ) {
-      return false;
-    }
-
-   // look for terminating piece of same color
-   for(int i=loc.getX()-2; i>=0; i--) {
-     Piece linePiece = getPiece(i, loc.getY());
-     
-     if( linePiece.sameColor(_piece) ) {
-       opColor = true;
-       break;
-     }
-     
-     if( linePiece.isEmpty() ) {
-       break;
-     }
-   }    
-
-   return opColor;
- 
-  }
-
-  private Boolean lineRight(Piece _piece) {
-    Boolean opColor = false; 
-    Location loc = _piece.getLoc();
-
-    if(loc.getX() == 7) {
-      return false;
-    }
-
-    // at least one piece of opposite color
-     Piece first = getPiece(loc.getX()-1, loc.getY());      
-    if( first.sameColor(_piece) ) {
-      return false;
-    }
-
-   // look for terminating piece of same color
-   for(int i=loc.getX()+2; i<8; i++) {
-     Piece linePiece = getPiece(i, loc.getY());
-     
-     if( linePiece.sameColor(_piece) ) {
-       opColor = true;
-       break;
-     }
-     
-     if( linePiece.isEmpty() ) {
-       break;
-     }
-   }    
-
-   return opColor;
-  
-  }
-
-  // these functions are used to get pieces relative
-  // to eachother, return empty if out of bounds
-  private Piece pieceUp(Piece _piece) {
-    Location loc = _piece.getLoc();
-    if (loc.getY()+1 > 7) 
-      return new EmptyPiece(_piece);
-
-    return getPiece(loc.getX(), loc.getY() + 1);
-  }
-
-  private Piece pieceDown(Piece _piece) {
-    Location loc = _piece.getLoc();
-    if (loc.getY()-1 < 0) 
-      return new EmptyPiece(_piece);
-
-    return getPiece(loc.getX(), loc.getY() - 1);
-  }
-
-  private Piece pieceLeft(Piece _piece) {
-    Location loc = _piece.getLoc();
-    if (loc.getY()+1 > 7) 
-      return new EmptyPiece(_piece);
-
-    return getPiece(loc.getX(), loc.getY() + 1);
-  }
-
-  private Piece pieceRight(Piece _piece) {
-    Location loc = _piece.getLoc();
-    if (loc.getX()+1 > 7) 
-      return new EmptyPiece(_piece);
-
-    return getPiece(loc.getX() + 1, loc.getY());
-  }
-
-  private Piece pieceTopLeft(Piece _piece) {
-    Location loc = _piece.getLoc();
-    if (loc.getX()-1 < 0) 
-      return new EmptyPiece(_piece);
-    if (loc.getY()+1 > 7)
-      return new EmptyPiece(_piece);
-
-    return getPiece(loc.getX()-1, loc.getY() + 1);
-  }
-
-  // diagonals
-  private Piece pieceTopRight(Piece _piece) {
-    Location loc = _piece.getLoc();
-    if (loc.getY()+1 > 7) 
-      return new EmptyPiece(_piece);
-    if (loc.getX()+1 > 7)
-      return new EmptyPiece(_piece);
-
-    return getPiece(loc.getX() + 1, loc.getY() + 1);
-  }
-
-  private Piece pieceBottomLeft(Piece _piece) {
-    Location loc = _piece.getLoc();
-    if (loc.getY()-1 < 0)
-      return new EmptyPiece(_piece);
-    if (loc.getX()-1 < 0)
-      return new EmptyPiece(_piece);
-
-    return getPiece(loc.getX() - 1, loc.getY() - 1);
-  }
-
-  private Piece pieceBottomRight(Piece _piece) {
-    Location loc = _piece.getLoc();
-    if (loc.getY()-1 < 0) 
-      return new EmptyPiece(_piece);
-    if(loc.getX()+1 > 7)
-      return new EmptyPiece(_piece);
-
-    return getPiece(loc.getX() + 1, loc.getY() - 1);
-  }
-
+  // used to implement game logic using the command pattern
   private interface Command {
     public Piece get(Piece _piece);
   }
