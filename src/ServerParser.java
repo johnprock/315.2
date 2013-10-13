@@ -54,6 +54,17 @@ public class ServerParser {
   }
 
   public Boolean parseMove(String _str, Tokenizer _tokenizer) {
+    Tokenizer t = new Tokenizer(_tokenizer);
+    Token row;
+    Token col;   
+
+    if(parseColumn(t)) {
+      col = t.nextToken();
+      if(parseRow(t)) {
+        row = t.nextToken();
+        return true;
+      }
+    }
     return false;
   }
 
@@ -63,26 +74,50 @@ public class ServerParser {
     if(token.type.equals("comment")) {
       return true;
     }
+    else return false;
+  }
+
+  private Boolean parseColumn(Tokenizer _tokenizer) {
+    Tokenizer t = new Tokenizer(_tokenizer);
+    Token token = t.nextToken();
+    String val = token.value;
+
+    if( val.equals("a") ||
+        val.equals("b") ||
+        val.equals("c") ||
+        val.equals("d") ||
+        val.equals("e") ||
+        val.equals("f") ||
+        val.equals("g") ||
+        val.equals("h") ) return true; 
     return false;
   }
 
-  public Boolean parseColumn() {
+  private Boolean parseRow(Tokenizer _tokenizer) {
+    Tokenizer t = new Tokenizer(_tokenizer);
+    Token token = t.nextToken();
+    String val = token.value;
+
+    if( val.equals("1") ||
+        val.equals("2") ||
+        val.equals("3") ||
+        val.equals("4") ||
+        val.equals("5") ||
+        val.equals("6") ||
+        val.equals("7") ||
+        val.equals("8") ) return true; 
     return false;
   }
 
-  public Boolean parseRow() {
+  private Boolean parseDigit() {
     return false;
   }
 
-  public Boolean parseDigit() {
+  private Boolean parseServer() {
     return false;
   }
 
-  public Boolean parseServer() {
-    return false;
-  }
-
-  public Boolean parsePort() {
+  private Boolean parsePort() {
     return false;
   }
 }

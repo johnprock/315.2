@@ -6,6 +6,7 @@ public class Tokenizer {
 
   Tokenizer(String _str) {
     str = _str;
+    str = str.replace(" ","");
   }
 
   Tokenizer(Tokenizer _t) {
