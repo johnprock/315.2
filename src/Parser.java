@@ -1,4 +1,6 @@
 public class Parser {
+  
+  Tokenizer tokenizer = new Tokenizer();
 
   public Boolean parse(String _str) {
     return parseExpr(_str);
@@ -25,10 +27,9 @@ public class Parser {
     if(_str.equals("REDO")) {
       ret = true;
     } else
-    if(_str.startsWith("HUMAN")) {
-      // ?
+    if(_str.startsWith("HUMAN-AI")) {
     } else   
-    if(_str.startsWith("AI")) {
+    if(_str.startsWith("AI-AI")) {
       // ?
     }
    
@@ -39,8 +40,15 @@ public class Parser {
     Boolean ret = false;
 
     if(_str.equals("EASY")) {
+      ret = true;
+    } else
+    if(_str.equals("MEDIUM")) {
+      ret = true;
+    } else
+    if(_str.equals("HARD")) {
+      ret = true;
     }
-    
+
     return ret;
   }
 
