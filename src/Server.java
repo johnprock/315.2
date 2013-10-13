@@ -3,7 +3,7 @@ public class Server {
    
     State s = new State();
     Engine e = new Engine();
-    Parser p = new Parser();
+    ServerParser p = new ServerParser();
 
   }
 }
