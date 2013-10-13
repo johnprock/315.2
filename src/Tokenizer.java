@@ -81,7 +81,7 @@ public class Tokenizer {
     } else
 
     if(str.length() != 0) {
-      t = new Token("char", str.charAt(0));
+      t = new Token("char", str.substring(0,1));
       consume(" ");
     }
 

@@ -4,14 +4,14 @@ public class ServerParser {
 
   public Boolean parse(String _str) {
     tokenizer = new Tokenizer(_str);
-    return parseExpr(_str);
+    return parseExpr(_str, tokenizer);
   }
 
-  public Boolean parseExpr(String _str) {
-    return parseCommand(_str) || parseMove(_str) || parseComment(_str);
+  public Boolean parseExpr(String _str, Tokenizer _tokenizer) {
+    return parseCommand(_str, tokenizer) || parseMove(_str, tokenizer) || parseComment(_str, tokenizer);
   }
 
-  public Boolean parseCommand(String _str) {
+  public Boolean parseCommand(String _str, Tokenizer _tokenizer) {
     Boolean ret = false;
     
     ret = parseDifficulty(_str);
@@ -53,11 +53,16 @@ public class ServerParser {
     return ret;
   }
 
-  public Boolean parseMove(String _str) {
+  public Boolean parseMove(String _str, Tokenizer _tokenizer) {
     return false;
   }
 
-  public Boolean parseComment(String _str) {
+  public Boolean parseComment(String _str, Tokenizer _tokenizer) {
+    Tokenizer t = new Tokenizer(_tokenizer);
+    Token token = t.nextToken();
+    if(token.type.equals("comment")) {
+      return true;
+    }
     return false;
   }
 
