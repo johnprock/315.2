@@ -1,5 +1,9 @@
+import java.util.Random;
+
 public  class Engine {
   State state;
+  Random rand;
+
   Boolean humanColor;
   Boolean aiColor;
   Boolean turn;
@@ -12,6 +16,7 @@ public  class Engine {
     humanColor = _color;
     aiColor = !humanColor;
     turn = false;
+    rand = new Random();
   }
 
   public Boolean isOver() {
@@ -23,6 +28,8 @@ public  class Engine {
   }
 
   public Boolean move(Location _loc) {
+    if(isOver()) return false;
+    
     if( humanMove(_loc) ) {
       if( aiMove() ) {
         return true;
@@ -39,8 +46,7 @@ public  class Engine {
         state.addBlack(_loc.getX(), _loc.getY());
         return true;
       }
-    }
-    else { // move white player
+    } else { // move white player
       Piece p = new WhitePiece(_loc);
       if(state.isValidMove(p)) {
         state.addWhite(_loc.getX(), _loc.getY());
@@ -53,14 +59,48 @@ public  class Engine {
 
 
   private Boolean aiMove() {
+    Piece p;
+    Location loc;
+
     if(!aiColor) { // black
 
+      while(true) {
+        p = randomBlack();
+        loc = p.getLoc();
+
+        if( state.isValidMove(p) ) {
+          state.addBlack(loc.getX(), loc.getY());
+          return true;
+        }
+      }
     }
     else { // white
 
+      while(true) {
+        p = randomWhite();
+        loc = p.getLoc();
+
+        if( state.isValidMove(p) ) {
+          state.addWhite(loc.getX(), loc.getY());
+          turn = !turn;
+          return true;
+        }
+      }
     }
-    turn = !turn;
-    return true;
+  }
+
+  private Piece randomBlack() {
+    int x = rand.nextInt(8);
+    int y = rand.nextInt(8);
+    Location loc = new Location(x,y);
+    return new BlackPiece(loc);
+  }
+
+  private Piece randomWhite() {
+    int x = rand.nextInt(8);
+    int y = rand.nextInt(8);
+    Location loc = new Location(x,y);
+    return new WhitePiece(loc);
   }
 
   private String DrawBoard(State currentState) {
