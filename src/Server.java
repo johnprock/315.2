@@ -13,8 +13,8 @@ public class Server {
     InetAddress thisIp =InetAddress.getLocalHost();
     System.out.println("Server IP:"+thisIp.getHostAddress());
     final int portNumber = 8123;
-	System.out.println("Creating server socket on port " + portNumber);
-	ServerSocket serverSocket = new ServerSocket(portNumber);
+  	System.out.println("Creating server socket on port " + portNumber);
+  	ServerSocket serverSocket = new ServerSocket(portNumber);
     Socket socket = serverSocket.accept();
     OutputStream os = socket.getOutputStream();
     PrintWriter pw = new PrintWriter(os, true);
@@ -44,7 +44,8 @@ public class Server {
     
       if(display) {
           // draw board
-           pw.println(p.e.draw());
+           if(p.e == null) pw.println("Can't display yet, pick a color");
+           else pw.println(p.e.draw());
        }
       
       
