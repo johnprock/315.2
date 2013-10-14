@@ -5,7 +5,8 @@ public class Engine {
   Engine() {
     state = new State();
     turn = true; // dark player moves first
-
+    // false for black
+    // true for white
   }
 
   public Boolean move(Location _loc) {
