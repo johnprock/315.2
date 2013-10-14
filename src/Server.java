@@ -36,16 +36,17 @@ public class Server {
       } else
 
       if( p.parse(str) ) {
-        if(display) {
-            // draw board
-            pw.println(p.e.draw());
-        }
         pw.println("OK");
       }
       else {
         pw.println("ILLEGAL");
       }
-
+    
+      if(display) {
+          // draw board
+           pw.println(p.e.draw());
+       }
+      
       
     }
     
