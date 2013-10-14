@@ -2,12 +2,11 @@ import java.io.*;
 //import java.util.Scanner;
 import java.net.*;
 public class Server {
+
   public static void main(String[] args)throws IOException {
    
-    State s = new State();
     Engine e = new Engine();
     ServerParser p = new ServerParser();
-    ClientParser c = new ClientParser();
     String str;
 
     //Scanner scanIn = new Scanner(System.in);
@@ -16,12 +15,18 @@ public class Server {
     final int portNumber = 8123;
 	System.out.println("Creating server socket on port " + portNumber);
 	ServerSocket serverSocket = new ServerSocket(portNumber);
+    Socket socket = serverSocket.accept();
+    OutputStream os = socket.getOutputStream();
+    PrintWriter pw = new PrintWriter(os, true);
+    BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+    pw.println("WELCOME");
+
+
+    // main loop
     while(true) {
-		Socket socket = serverSocket.accept();
-		OutputStream os = socket.getOutputStream();
-		PrintWriter pw = new PrintWriter(os, true);
+
         pw.println("whats ur move? ");
-		BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		str = br.readLine();
 		pw.println("test move, " + str);
 		//System.out.print("Parser> ");
@@ -37,10 +42,11 @@ public class Server {
       else {
 			System.out.println("Parse failed.");
 		}
-		pw.close();
-		socket.close();
+
     }
     
+    pw.close();
+    socket.close();
     //scanIn.close();            
 
   }

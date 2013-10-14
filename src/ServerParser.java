@@ -26,6 +26,14 @@ public class ServerParser extends Parser {
       ret = true;
     } else
 
+    if(val.equals("WHITE")) {
+      ret = true;
+    } else
+
+    if(val.equals("BLACK")) {
+      ret = true;
+    } else
+
     if(val.equals("DISPLAY")) {
       ret = true;
     } else

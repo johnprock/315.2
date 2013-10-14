@@ -4,8 +4,13 @@ import java.util.*;
 import java.net.UnknownHostException;
 public class Client{
 
+    
+
 	public static void main(String args[]){
-		System.out.println("what is the server ip address");
+		ServerParser parser;
+        parser = new ServerParser();
+
+		System.out.println("Server IP: ");
 		Scanner in = new Scanner(System.in);
 		final String host = in.nextLine();
 		//final String host = "localhost";
@@ -13,6 +18,7 @@ public class Client{
 	    try{
             System.out.println("Creating socket to '" + host + "' on port " + portNumber);
 
+        // main loop
 		while (true) {
 			Socket socket = new Socket(host, portNumber);
 			BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));

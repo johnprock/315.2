@@ -7,7 +7,7 @@ public abstract class Parser {
   protected Boolean parseComment(Tokenizer _tokenizer) {
     Tokenizer t = new Tokenizer(_tokenizer);
     Token token = t.nextToken();
-    if(token.type.equals("comment")) {
+    if(token.value.startsWith(";")) {
       return true;
     }
     else return false;
