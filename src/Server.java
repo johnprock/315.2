@@ -7,6 +7,7 @@ public class Server {
     State s = new State();
     Engine e = new Engine();
     ServerParser p = new ServerParser();
+    ClientParser c = new ClientParser();
     String str;
 
     Scanner scanIn = new Scanner(System.in);

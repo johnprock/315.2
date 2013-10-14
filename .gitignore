@@ -19,5 +19,5 @@
 
 # Java fluff
 *.class
-
+*.swp
 .DS_Store
