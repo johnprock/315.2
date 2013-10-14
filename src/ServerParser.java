@@ -57,14 +57,7 @@ public class ServerParser extends Parser {
     } else
 
     if(val.equals("HUMAN-AI")) {
-        Tokenizer tzer = new Tokenizer(t);
-        server = tzer.nextToken();
-        port = tzer.nextToken();
-
-        if(parseDifficulty(tzer)) {
-          difficulty1 = t.nextToken();
-          ret = true;   
-      }
+      ret = true;
     } else 
   
     if(val.equals("AI-AI")) {

@@ -142,7 +142,6 @@ public class State {
   }
 
   private void lineFlip(Piece _piece, Command c) {
-    Boolean line = false;
     Location loc = _piece.getLoc();
     Piece current = _piece;
     
