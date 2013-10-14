@@ -29,7 +29,7 @@ public  class Engine {
 
   public Boolean move(Location _loc) {
     if(isOver()) return false;
-    
+
     if( humanMove(_loc) ) {
       if( aiMove() ) {
         return true;
@@ -70,6 +70,7 @@ public  class Engine {
 
         if( state.isValidMove(p) ) {
           state.addBlack(loc.getX(), loc.getY());
+          turn = !turn;
           return true;
         }
       }
