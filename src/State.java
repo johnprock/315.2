@@ -65,7 +65,6 @@ public class State {
 
     Location loc = _piece.getLoc();
     if( !getPiece(loc.getX(), loc.getY()).isEmpty() ) {
-      System.out.println("square full");
       return false;
     }
     
