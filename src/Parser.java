@@ -1,7 +1,8 @@
 public abstract class Parser {
 
   Tokenizer tokenizer;
-  
+  public Engine e;
+
   public abstract Boolean parse(String _str);
 
   protected Boolean parseComment(Tokenizer _tokenizer) {
@@ -23,7 +24,11 @@ public abstract class Parser {
       col = t.nextToken();
       if(parseRow(t)) {
         row = t.nextToken();
-        return true;
+        int x = Integer.parseInt(row.value);
+        x--;
+        int y = convertCol(col.value);
+        Location loc = new Location(x,y);
+        return e.move(loc);
       }
     }
     return false;
@@ -59,5 +64,17 @@ public abstract class Parser {
         val.equals("7") ||
         val.equals("8") ) return true; 
     return false;
+  }
+
+  protected int convertCol(String _str) {
+    if(_str.equals("a")) return 0;
+    if(_str.equals("b")) return 1;
+    if(_str.equals("c")) return 2;
+    if(_str.equals("d")) return 3;
+    if(_str.equals("e")) return 4;
+    if(_str.equals("f")) return 5;
+    if(_str.equals("g")) return 6;
+    if(_str.equals("h")) return 7;
+    return -1;
   }
 }

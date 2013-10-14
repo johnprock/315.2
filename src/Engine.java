@@ -1,11 +1,16 @@
 public  class Engine {
   State state;
+  Boolean humanColor;
+  Boolean aiColor;
   Boolean turn;
-  // black is false
-  // white is true
+  // false black
+  // true white
 
-  Engine() {
+
+  Engine(Boolean _color) {
     state = new State();
+    humanColor = _color;
+    aiColor = !humanColor;
     turn = false;
   }
 
@@ -19,15 +24,16 @@ public  class Engine {
 
   public Boolean move(Location _loc) {
     if( humanMove(_loc) ) {
-      aiMove();
-      return true;
+      if( aiMove() ) {
+        return true;
+      }
     }
 
     return false;
   }
 
   private Boolean humanMove(Location _loc) {
-    if(!turn) { // move black player
+    if(!humanColor) { // move black player
       Piece p = new BlackPiece(_loc);
       if(state.isValidMove(p)) {
         state.addBlack(_loc.getX(), _loc.getY());
@@ -41,18 +47,20 @@ public  class Engine {
         return true;
       }
     }
+    turn = !turn;
     return false;
   }
 
 
-  private void aiMove() {
-    if(!turn) { // black
+  private Boolean aiMove() {
+    if(!aiColor) { // black
 
     }
     else { // white
 
     }
-
+    turn = !turn;
+    return true;
   }
 
   private String DrawBoard(State currentState) {
