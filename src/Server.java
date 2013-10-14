@@ -21,10 +21,6 @@ public class Server {
     BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
     pw.println("WELCOME");
-    if( p.parse(br.readLine()) ) {
-        pw.println("OK");
-    }
-
 
     // main loop
     while(true) {

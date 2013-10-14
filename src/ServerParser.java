@@ -1,8 +1,10 @@
 public class ServerParser extends Parser {
    
   public Engine e;
+  Boolean humanColor; // black is false, white is true
 
   ServerParser() {
+    humanColor = false; // default to black
     e = new Engine();
   }
 
@@ -33,9 +35,11 @@ public class ServerParser extends Parser {
 
     if(val.equals("WHITE")) {
       ret = true;
+      humanColor = true;
     } else
 
     if(val.equals("BLACK")) {
+      humanColor = false;
       ret = true;
     } else
 

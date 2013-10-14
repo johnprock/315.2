@@ -13,10 +13,10 @@ public class State {
     }
 
     // set middle square
-    addBlack(4,5);
-    addBlack(5,4);
+    addBlack(3,4);
+    addBlack(4,3);
+    addWhite(3,3);
     addWhite(4,4);
-    addWhite(5,5);
 
   }
 
@@ -26,6 +26,10 @@ public class State {
   }
 
   public Piece getPiece(int _x, int _y) {
+    assert _x < 8;
+    assert _x >= 0;
+    assert _y < 8;
+    assert _y >= 0;
     return board[_x][_y];
   }
 

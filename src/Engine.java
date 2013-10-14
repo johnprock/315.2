@@ -1,15 +1,32 @@
-public class Engine {
+public  class Engine {
   State state;
   Boolean turn;
-  
+  // black is false
+  // white is true
+
   Engine() {
     state = new State();
-    turn = true; // dark player moves first
-    // false for black
-    // true for white
+    turn = false;
+  }
+
+  public Boolean isOver() {
+    return state.isOver(turn);
+  }
+
+  public String draw() {
+    return DrawBoard(state);
   }
 
   public Boolean move(Location _loc) {
+    if( humanMove(_loc) ) {
+      aiMove();
+      return true;
+    }
+
+    return false;
+  }
+
+  private Boolean humanMove(Location _loc) {
     if(!turn) { // move black player
       Piece p = new BlackPiece(_loc);
       if(state.isValidMove(p)) {
@@ -27,12 +44,9 @@ public class Engine {
     return false;
   }
 
-  public Boolean isOver() {
-    return state.isOver(turn);
-  }
 
-  public void aiMove() {
-    if(turn) { // black
+  private void aiMove() {
+    if(!turn) { // black
 
     }
     else { // white
@@ -41,32 +55,30 @@ public class Engine {
 
   }
 
-  public String draw() {
-    return DrawBoard(state);
-  }
-
   private String DrawBoard(State currentState) {
     String newLine = "\n";
     String str = "";
-    str += "  _ _ _ _ _ _ _ _"; //top of the board
+    str += "  _ _ _ _ _ _ _ _\n"; //top of the board
 
     for (int row = 0; row<8; row++){
-      str += (row+"|");
+      str += ( (row+1) + "|");
       for (int column = 0; column<8; column++)
       {
-        if (currentState.board[row][column]!= null){
+        if(currentState.getPiece(row,column) != null) {
           if (currentState.getPiece(row,column).isBlack()){
             str += "@|";
-          }
+          } 
           if (currentState.getPiece(row,column).isWhite()){
             str += "O|";
           }
+          if (currentState.getPiece(row,column).isEmpty()) {
+            str += "_|";
+          } 
         }
-        else
-          str += "_|"; 
       }
+      str += "\n";
     }
-    str += "  a b c d e f g h";//bottom of the board
+    str += "  a b c d e f g h\n";//bottom of the board
     return str;
   }
 
