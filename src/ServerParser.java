@@ -2,58 +2,92 @@ public class ServerParser {
   
   Tokenizer tokenizer;
 
+
   public Boolean parse(String _str) {
     tokenizer = new Tokenizer(_str);
-    return parseExpr(_str, tokenizer);
+    return parseExpr();
   }
 
-  public Boolean parseExpr(String _str, Tokenizer _tokenizer) {
-    return parseCommand(_str, tokenizer) || parseMove(_str, tokenizer) || parseComment(_str, tokenizer);
+  public Boolean parseExpr() {
+    return parseCommand(tokenizer) || parseMove(tokenizer) || parseComment(tokenizer);
   }
 
-  public Boolean parseCommand(String _str, Tokenizer _tokenizer) {
+  public Boolean parseCommand(Tokenizer _tokenizer) {
     Boolean ret = false;
+    Tokenizer t = new Tokenizer(_tokenizer);
+    Token token = t.nextToken();
+    String val = token.value;    
+
+    Token server;
+    Token port;
+    Token difficulty1;
+    Token difficulty2;
+
     
-    ret = parseDifficulty(_str);
-    
-    if(_str.equals("EXIT")) {
+    if(val.equals("EXIT")) {
       ret = true;
     } else
-    if(_str.equals("DISPLAY")) {
+
+    if(val.equals("DISPLAY")) {
       ret = true;
     } else
-    if(_str.equals("UNDO")) {
+
+    if(val.equals("UNDO")) {
       ret = true;
     } else
-    if(_str.equals("REDO")) {
-      ret = true;
-    } else
-    if(_str.startsWith("HUMAN-AI")) {
-    } else   
-    if(_str.startsWith("AI-AI")) {
-      // ?
-    }
    
+    if(val.equals("REDO")) {
+      ret = true;
+    } else
+
+    if(val.equals("HUMAN-AI")) {
+        Tokenizer tzer = new Tokenizer(t);
+        server = tzer.nextToken();
+        port = tzer.nextToken();
+
+        if(parseDifficulty(tzer)) {
+          difficulty1 = t.nextToken();
+          ret = true;   
+      }
+    } else 
+  
+    if(val.equals("AI-AI")) {
+      Tokenizer tzer = new Tokenizer(t);
+      server = tzer.nextToken();
+      port = tzer.nextToken();
+
+      if(parseDifficulty(tzer)) {
+        difficulty1 = t.nextToken();
+        if(parseDifficulty(tzer)) {
+          difficulty2 = t.nextToken();
+          ret = true;
+        }
+      }
+    }
+ 
     return ret;
   }
 
-  public Boolean parseDifficulty(String _str) {
+  public Boolean parseDifficulty(Tokenizer _tokenizer) {
     Boolean ret = false;
+    Tokenizer t = new Tokenizer(_tokenizer);
+    Token token = t.nextToken();
+    String val = token.value;
 
-    if(_str.equals("EASY")) {
+    if(val.equals("EASY")) {
       ret = true;
     } else
-    if(_str.equals("MEDIUM")) {
+    if(val.equals("MEDIUM")) {
       ret = true;
     } else
-    if(_str.equals("HARD")) {
+    if(val.equals("HARD")) {
       ret = true;
     }
 
     return ret;
   }
 
-  public Boolean parseMove(String _str, Tokenizer _tokenizer) {
+  public Boolean parseMove(Tokenizer _tokenizer) {
     Tokenizer t = new Tokenizer(_tokenizer);
     Token row;
     Token col;   
@@ -68,7 +102,7 @@ public class ServerParser {
     return false;
   }
 
-  public Boolean parseComment(String _str, Tokenizer _tokenizer) {
+  public Boolean parseComment(Tokenizer _tokenizer) {
     Tokenizer t = new Tokenizer(_tokenizer);
     Token token = t.nextToken();
     if(token.type.equals("comment")) {
@@ -106,18 +140,6 @@ public class ServerParser {
         val.equals("6") ||
         val.equals("7") ||
         val.equals("8") ) return true; 
-    return false;
-  }
-
-  private Boolean parseDigit() {
-    return false;
-  }
-
-  private Boolean parseServer() {
-    return false;
-  }
-
-  private Boolean parsePort() {
     return false;
   }
 }
