@@ -64,8 +64,10 @@ public class State {
     // of the same color
 
     Location loc = _piece.getLoc();
-    if( !getPiece(loc.getX(), loc.getY()).isEmpty() )
+    if( !getPiece(loc.getX(), loc.getY()).isEmpty() ) {
+      System.out.println("square full");
       return false;
+    }
     
     return lineCheck(_piece, up)      || lineCheck(_piece, down)    ||
            lineCheck(_piece, left)    || lineCheck(_piece,right)    ||
@@ -103,30 +105,29 @@ public class State {
 
 
   private Boolean lineCheck(Piece _piece, Command c) {
-    Boolean line = false;
+    Boolean line = true;
     Location loc = _piece.getLoc();
     Piece current = c.get(_piece);
 
+    // empty line is false
     if( current.isEmpty() ) {
       return false;
     }
 
+    // two pieces of the same color not a line
     if( _piece.sameColor(current) ) {
       return false;
     }
 
-    current = c.get(current);
-    while( !current.isEmpty() ) {
-      
-      line = true;
-      if( !current.sameColor(_piece) ) {
-        line = false;
-        break;
-      }
+    // n pieces of opposite color followed by piece of the same color
+    while(true) {
       current = c.get(current);
+       
+      if(current.isEmpty()) return false;
+      if( _piece.sameColor(current)) return true;
+
     }
 
-    return line;
   }
 
   private void multiFilp(Piece p) {
