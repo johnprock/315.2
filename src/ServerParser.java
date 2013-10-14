@@ -35,6 +35,7 @@ public class ServerParser extends Parser {
       ret = true;
       humanColor = true;
       e = new Engine(humanColor);
+      e.aiMove();
     } else
 
     if(val.equals("BLACK")) {

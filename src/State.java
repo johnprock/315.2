@@ -64,7 +64,7 @@ public class State {
     // of the same color
 
     Location loc = _piece.getLoc();
-    if( getPiece(loc.getX(), loc.getY()).isEmpty() )
+    if( !getPiece(loc.getX(), loc.getY()).isEmpty() )
       return false;
     
     return lineCheck(_piece, up)      || lineCheck(_piece, down)    ||
@@ -117,8 +117,10 @@ public class State {
 
     current = c.get(current);
     while( !current.isEmpty() ) {
-      if( current.sameColor(_piece) ) {
-        line = true;
+      
+      line = true;
+      if( !current.sameColor(_piece) ) {
+        line = false;
         break;
       }
       current = c.get(current);
@@ -190,10 +192,10 @@ public class State {
   private class Left implements Command {
     public Piece get(Piece _piece) {
       Location loc = _piece.getLoc();
-      if (loc.getY()+1 > 7) 
+      if (loc.getX()-1 < 0) 
         return new EmptyPiece(_piece);
 
-      return getPiece(loc.getX(), loc.getY() + 1);
+      return getPiece(loc.getX() - 1 , loc.getY());
     }
   }
 

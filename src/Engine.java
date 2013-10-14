@@ -44,21 +44,22 @@ public  class Engine {
       Piece p = new BlackPiece(_loc);
       if(state.isValidMove(p)) {
         state.addBlack(_loc.getX(), _loc.getY());
+        turn = !turn;
         return true;
       }
     } else { // move white player
       Piece p = new WhitePiece(_loc);
       if(state.isValidMove(p)) {
         state.addWhite(_loc.getX(), _loc.getY());
+        turn = !turn;
         return true;
       }
     }
-    turn = !turn;
     return false;
   }
 
 
-  private Boolean aiMove() {
+  public Boolean aiMove() {
     Piece p;
     Location loc;
 
