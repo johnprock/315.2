@@ -5,9 +5,9 @@ public class Server {
 
   public static void main(String[] args)throws IOException {
    
-    Engine e = new Engine();
     ServerParser p = new ServerParser();
     String str;
+    Boolean display = false;
 
     //Scanner scanIn = new Scanner(System.in);
     InetAddress thisIp =InetAddress.getLocalHost();
@@ -21,28 +21,36 @@ public class Server {
     BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
     pw.println("WELCOME");
+    if( p.parse(br.readLine()) ) {
+        pw.println("OK");
+    }
 
 
     // main loop
     while(true) {
+      str = br.readLine();
 
-        pw.println("whats ur move? ");
-		str = br.readLine();
-		pw.println("test move, " + str);
-		//System.out.print("Parser> ");
-        //str = scanIn.nextLine();
- 
-        if(str.equals("quit")) break;  
-    
-        if(p.parse(str)) {
-			System.out.println("Parse succeded.");
-			pw.println("move, " + str);
-			System.out.println("move:" + str);
-		} 
+      if(str.equals("EXIT")) {
+        break;
+      } else
+      
+      if(str.equals("DISPLAY")) {
+        display = true;
+        pw.println("OK");
+      } else
+
+      if( p.parse(str) ) {
+        if(display) {
+            // draw board
+            pw.println(p.e.draw());
+        }
+        pw.println("OK");
+      }
       else {
-			System.out.println("Parse failed.");
-		}
+        pw.println("ILLEGAL");
+      }
 
+      
     }
     
     pw.close();

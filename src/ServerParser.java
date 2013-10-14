@@ -1,5 +1,10 @@
 public class ServerParser extends Parser {
-  
+   
+  public Engine e;
+
+  ServerParser() {
+    e = new Engine();
+  }
 
   public Boolean parse(String _str) {
     tokenizer = new Tokenizer(_str);
