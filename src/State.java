@@ -1,6 +1,15 @@
 public class State {
   Piece[][] board; 
 
+  Command up        = new Up();
+  Command down      = new Down();
+  Command left      = new Left();
+  Command right     = new Right();
+  Command upleft    = new UpLeft();
+  Command upright   = new UpRight();
+  Command downleft  = new DownLeft();
+  Command downright = new DownRight();
+
   // regular constructor
   State() {
     board = new Piece[8][8];
@@ -33,32 +42,30 @@ public class State {
     return board[_x][_y];
   }
 
-  public void flipPiece(int _x, int _y) {
-    board[_x][_y] = board[_x][_y].flip();
-  }
-
   public void addBlack(int _x, int _y) {
     Location loc = new Location(_x, _y);
     board[_x][_y] = new BlackPiece(loc);
+
+    Piece p = getPiece(_x,_y);
+    multiFilp(p);
   }
 
   public void addWhite(int _x, int _y) {
     Location loc = new Location(_x, _y);
     board[_x][_y] = new WhitePiece(loc);
+
+    Piece p = getPiece(_x,_y);
+    multiFilp(p);
   }
 
   public Boolean isValidMove(Piece _piece) {
     // a move is valid if there is a line of pieces
     // of the opposing color terminated by a piece
     // of the same color
-    Command up        = new Up();
-    Command down      = new Down();
-    Command left      = new Left();
-    Command right     = new Right();
-    Command upleft    = new UpLeft();
-    Command upright   = new UpRight();
-    Command downleft  = new DownLeft();
-    Command downright = new DownRight();
+
+    Location loc = _piece.getLoc();
+    if( getPiece(loc.getX(), loc.getY()).isEmpty() )
+      return false;
     
     return lineCheck(_piece, up)      || lineCheck(_piece, down)    ||
            lineCheck(_piece, left)    || lineCheck(_piece,right)    ||
@@ -118,6 +125,41 @@ public class State {
     }
 
     return line;
+  }
+
+  private void multiFilp(Piece p) {
+    if(lineCheck(p, up))        lineFlip(p, up);
+    if(lineCheck(p, down))      lineFlip(p, down);
+    if(lineCheck(p, left))      lineFlip(p, left);
+    if(lineCheck(p, right))     lineFlip(p, right);
+    if(lineCheck(p, upleft))    lineFlip(p, upleft);
+    if(lineCheck(p, upright))   lineFlip(p, upright);
+    if(lineCheck(p, downleft))  lineFlip(p, downleft);
+    if(lineCheck(p, downright)) lineFlip(p, downright);
+  }
+
+  private void lineFlip(Piece _piece, Command c) {
+    Boolean line = false;
+    Location loc = _piece.getLoc();
+    Piece current = _piece;
+    
+
+    while( !current.isEmpty() ) {
+      current = c.get(current);
+      if( current.sameColor(_piece) ) {
+        break;
+      }
+      flip(current);
+    }
+  }
+
+  private void flip(Piece p) {
+    Location loc = p.getLoc();
+    flipPiece(loc.getX(), loc.getY());
+  }
+
+  private void flipPiece(int _x, int _y) {
+    board[_x][_y] = board[_x][_y].flip();
   }
 
   // used to implement game logic using the command pattern
