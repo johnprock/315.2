@@ -285,14 +285,15 @@ public class State {
 
         if( isValidMove(p) ) {
           s = new State(this);
-          children.add(s);
          
           if(color == black) {
-            addBlack(p.loc.getX(), p.loc.getY());
+            s.addBlack(p.loc.getX(), p.loc.getY());
           }
           else {
-            addWhite(p.loc.getX(), p.loc.getY());
+            s.addWhite(p.loc.getX(), p.loc.getY());
           }
+
+          children.add(s);
         }
       }
     }

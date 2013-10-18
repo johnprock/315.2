@@ -25,7 +25,7 @@ public  class Engine {
     rand = new Random();
     
     heuristic = new TestHeuristic();
-    depth = 1;
+    depth = 0;
   }
 
   public Boolean isOver() {
@@ -103,7 +103,7 @@ public  class Engine {
     return new WhitePiece(loc);
   }
 
-  private String DrawBoard(State currentState) {
+  public String DrawBoard(State currentState) {
     String newLine = "\n";
     String str = "";
     str += "  _ _ _ _ _ _ _ _\n"; //top of the board
