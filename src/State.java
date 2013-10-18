@@ -39,6 +39,7 @@ public class State {
 
     for(int row=0; row<8; row++) {
       for(int col=0; col<8; col++) {
+        this.board[row][col] = state.board[row][col].copy();
       }
     }        
   }
