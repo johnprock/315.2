@@ -8,6 +8,10 @@ public class BlackPiece extends Piece {
     this.loc = _piece.loc;
   }  
 
+  public Piece copy() {
+    return new BlackPiece(this);
+  }
+
   public Piece flip() {
     return new WhitePiece(this);
   } 

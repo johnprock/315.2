@@ -6,6 +6,10 @@ public class WhitePiece extends Piece {
   // copy constructor copies location
   WhitePiece(Piece _piece) { 
     this.loc = _piece.loc;
+  }
+
+  public Piece copy() {
+    return new WhitePiece(this);
   } 
 
   public Piece flip() {

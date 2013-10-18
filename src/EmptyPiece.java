@@ -7,6 +7,10 @@ public class EmptyPiece extends Piece {
     this.loc = _piece.loc;
   }
 
+  public Piece copy() {
+    return new EmptyPiece(this);
+  }
+
   public Piece flip() {
     return this;
   } 

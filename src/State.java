@@ -35,7 +35,12 @@ public class State {
 
   // copy constructor
   State(State state) {
-    this.board = state.board;
+    board = new Piece[8][8];
+
+    for(int row=0; row<8; row++) {
+      for(int col=0; col<8; col++) {
+      }
+    }        
   }
 
   public Piece getPiece(int _x, int _y) {
@@ -59,22 +64,6 @@ public class State {
     board[_x][_y] = new WhitePiece(loc);
 
     Piece p = getPiece(_x,_y);
-    multiFlip(p);
-  }
-
-  public void addPiece(Piece _p) {
-    int x = _p.loc.getX();
-    int y = _p.loc.getY();
-    
-    Piece p;
-    if(_p.isBlack()) {
-      p = new BlackPiece(_p);
-    }
-    else {
-      p = new WhitePiece(_p);
-    }
-   
-    board[x][y] = p;
     multiFlip(p);
   }
 
@@ -292,10 +281,17 @@ public class State {
         else {
           p = new WhitePiece(loc); 
         }
+
         if( isValidMove(p) ) {
           s = new State(this);
-          s.addPiece(p);
           children.add(s);
+         
+          if(color == black) {
+            addBlack(p.loc.getX(), p.loc.getY());
+          }
+          else {
+            addWhite(p.loc.getX(), p.loc.getY());
+          }
         }
       }
     }

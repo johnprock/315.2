@@ -1,5 +1,7 @@
 public abstract class Piece {
   Location loc;
+ 
+  public abstract Piece copy();
 
   public abstract Boolean isBlack();
  
