@@ -1,8 +1,12 @@
 import java.util.Random;
+import java.util.ArrayList;
 
 public  class Engine {
   State state;
   Random rand;
+
+  static final Boolean black = false;
+  static final Boolean white = true;
 
   Boolean humanColor;
   Boolean aiColor;
@@ -44,7 +48,7 @@ public  class Engine {
   }
 
   private Boolean humanMove(Location _loc) {
-    if(!humanColor) { // move black player
+    if(humanColor == black) { // move black player
       Piece p = new BlackPiece(_loc);
       if(state.isValidMove(p)) {
         state.addBlack(_loc.getX(), _loc.getY());
@@ -67,7 +71,7 @@ public  class Engine {
     Piece p;
     Location loc;
 
-    if(!aiColor) { // black
+    if(aiColor == black) { // black
 
       while(true) {
         p = randomBlack();
@@ -136,19 +140,34 @@ public  class Engine {
     return str;
   }
 
-  private double minimax(State _state, int _depth, Boolean _player) {
-    if(depth == 0 || _state.isOver(_player)) {
-    }
-    return 0;
-  }
+  // algorithm taken largely from wikipedia
+  private double minimax(State _state, int _depth, Boolean _player, Boolean _color) {
+    double bestValue;
+    double val;
+    ArrayList<State> children;
 
-  private class Node {
-    public double value;
-    public State state;
+    if(depth == 0 || _state.isOver(_color)) {
+      return heuristic.evaluate(_state);
+    }
     
-    Node(State _state, double _value) {
-      state = _state;
-      value = _value;
+    if(_player) {
+      bestValue = 0;
+      children = _state.getChildren(_color);
+      for(State child : children) {
+        val = minimax(child, depth-1, false, !_color);
+        bestValue = Math.max(bestValue, val);
+      } 
+      return bestValue;
+    }
+        
+    else {
+      bestValue = 1;
+      children = _state.getChildren(_color);
+      for(State child : children) {
+        val = minimax(child, depth-1, true, !_color);
+        bestValue = Math.min(bestValue, val);
+      }
+      return bestValue;
     }
   }
 
