@@ -85,7 +85,7 @@ public  class Engine {
       }
     }
      
-    state = state;     
+    state = bestState;     
     return true;
   }
 
