@@ -10,6 +10,8 @@ public  class Engine {
   // false black
   // true white
 
+  int depth;
+  Heuristic heuristic;
 
   Engine(Boolean _color) {
     state = new State();
@@ -17,6 +19,8 @@ public  class Engine {
     aiColor = !humanColor;
     turn = false;
     rand = new Random();
+    
+    heuristic = new TestHeuristic();
   }
 
   public Boolean isOver() {
@@ -132,4 +136,19 @@ public  class Engine {
     return str;
   }
 
+  private double minimax(State _state, int _depth, Boolean _player) {
+    if(depth == 0 || _state.isOver(_player)) {
+    }
+    return 0;
+  }
+
+  private interface Heuristic {
+    public double evaluate(State _state); 
+  }
+
+  private class TestHeuristic implements Heuristic {
+    public double evaluate(State _state) {
+      return .5;
+    }
+  }
 }

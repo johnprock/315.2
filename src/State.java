@@ -1,5 +1,9 @@
+import java.util.ArrayList;
+
 public class State {
   Piece[][] board; 
+  static final Boolean black = false;
+  static final Boolean white = true;
 
   Command up        = new Up();
   Command down      = new Down();
@@ -47,7 +51,7 @@ public class State {
     board[_x][_y] = new BlackPiece(loc);
 
     Piece p = getPiece(_x,_y);
-    multiFilp(p);
+    multiFlip(p);
   }
 
   public void addWhite(int _x, int _y) {
@@ -55,7 +59,23 @@ public class State {
     board[_x][_y] = new WhitePiece(loc);
 
     Piece p = getPiece(_x,_y);
-    multiFilp(p);
+    multiFlip(p);
+  }
+
+  public void addPiece(Piece _p) {
+    int x = _p.loc.getX();
+    int y = _p.loc.getY();
+    
+    Piece p;
+    if(_p.isBlack()) {
+      p = new BlackPiece(_p);
+    }
+    else {
+      p = new WhitePiece(_p);
+    }
+   
+    board[x][y] = p;
+    multiFlip(p);
   }
 
   public Boolean isValidMove(Piece _piece) {
@@ -129,7 +149,7 @@ public class State {
 
   }
 
-  private void multiFilp(Piece p) {
+  private void multiFlip(Piece p) {
     if(lineCheck(p, up))        lineFlip(p, up);
     if(lineCheck(p, down))      lineFlip(p, down);
     if(lineCheck(p, left))      lineFlip(p, left);
@@ -254,6 +274,32 @@ public class State {
 
       return getPiece(loc.getX() + 1, loc.getY() - 1);
     }
+  }
+
+  ArrayList<State> getChildren(Boolean color) { 
+    ArrayList<State> children = new ArrayList<State>();
+    Piece p;
+    Location loc;
+    State s;
+
+    for(int row=0; row<8; row++) {
+      for(int col=0; col<8; col++) {
+     
+        loc = new Location(row,col);  
+        if(color == black) {
+          p = new BlackPiece(loc);
+        }
+        else {
+          p = new WhitePiece(loc); 
+        }
+        if( isValidMove(p) ) {
+          s = new State(this);
+          s.addPiece(p);
+          children.add(s);
+        }
+      }
+    }
+    return children; 
   }
 }
 
