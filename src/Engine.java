@@ -142,6 +142,16 @@ public  class Engine {
     return 0;
   }
 
+  private class Node {
+    public double value;
+    public State state;
+    
+    Node(State _state, double _value) {
+      state = _state;
+      value = _value;
+    }
+  }
+
   private interface Heuristic {
     public double evaluate(State _state); 
   }
