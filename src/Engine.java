@@ -25,6 +25,7 @@ public  class Engine {
     rand = new Random();
     
     heuristic = new TestHeuristic();
+    depth = 1;
   }
 
   public Boolean isOver() {
@@ -70,33 +71,22 @@ public  class Engine {
   public Boolean aiMove() {
     Piece p;
     Location loc;
+    ArrayList<State> children;
+    double bestValue = 0;
+    double val = 0;
+    State bestState = state; 
 
-    if(aiColor == black) { // black
-
-      while(true) {
-        p = randomBlack();
-        loc = p.getLoc();
-
-        if( state.isValidMove(p) ) {
-          state.addBlack(loc.getX(), loc.getY());
-          turn = !turn;
-          return true;
-        }
+    children = state.getChildren(aiColor);
+    for(State child : children) {
+      val = minimax(child, depth, true, aiColor); 
+      bestValue = Math.max(bestValue, val);
+      if(bestValue == val) {
+        bestState = child;
       }
     }
-    else { // white
-
-      while(true) {
-        p = randomWhite();
-        loc = p.getLoc();
-
-        if( state.isValidMove(p) ) {
-          state.addWhite(loc.getX(), loc.getY());
-          turn = !turn;
-          return true;
-        }
-      }
-    }
+     
+    state = state;     
+    return true;
   }
 
   private Piece randomBlack() {
