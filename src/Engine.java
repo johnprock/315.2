@@ -174,62 +174,68 @@ public  class Engine {
     public double evaluate(State _state) {
 		
 		double bestValue = 0;
-		double potentialValue = 0;
-		double blackPieceCount = 0;
-		double pieceTotal = 0;
+		double potentialMoveValue = 0;
 		double pieceValue = 0;
-		
-		
-		double potVal=0;
-		
+		double edgeListValue = 0;
+		double edgeValue = 0;
 		
 		ArrayList<State> children;
-		ArrayList<State> subchildren;
 		children = _state.getChildren(true);
+		double childrenSize = children.size();
+		
 		
 		for(State child : children) {
 		
-			//checks for potential mobility(worth 1 point)		
-			subchildren = child.getChildren(true);
-			potVal = subchildren.size();
-			potentialValue = Math.max(potentialValue, potVal);
+			//checks for potential mobility	
+			ArrayList<State> subchildren;
+			subchildren = child.getChildren(false);
+			double potVal = (childrenSize)/(subchildren.size()) ;
+			potentialMoveValue = Math.max(potentialMoveValue, potVal);
 			
-			//checks for pieces(worth 1/10 of a point)
+			
 			double whitePieceCount = 0;
+			double blackPieceCount = 0;
+			double edgeAccessTotal = 0;
+			
 			for(int row=0; row<8; row++) {
 				for(int col=0; col<8; col++) {
 					if(child.getPiece(row,col) != null) {
+					
+						//counts number of pieces 
 						if (child.getPiece(row,col).isBlack()){
 							blackPieceCount++;
 						}
 						if (child.getPiece(row,col).isWhite()){
 							whitePieceCount++;
 						}
-						if (child.getPiece(row,col).isEmpty()) {
-							//str += "_|";
-						} 
+					
+						//checks for corner accessibility from corner(corner ratio)
+						if ((row==1||row==7)&&(col==1||col==6)){
+							if (child.getPiece(row,col).isWhite()){
+								edgeAccessTotal += -0.5;
+							}
+						}
+							
+							//checks for corner accessibility from edge(edge ratio)
+						if ((row==0||row==1||row==6||row==7)&&(col==0||col==1||col==6||col==7)){
+							if (child.getPiece(row,col).isWhite()){
+								edgeAccessTotal += -0.5;
+							}
+						}
+
 					}
 				}
 			}
-			pieceValue = Math.max(pieceTotal, whitePieceCount);
+			
+			
+			double pieceTotal = (whitePieceCount - blackPieceCount)  /(whitePieceCount + blackPieceCount);
+			pieceValue = Math.max(pieceValue, pieceTotal);
+			//edge list value
+			edgeValue = Math.max(edgeValue, edgeAccessTotal);
 		}
 		
-		
-		
-		
-		
-		
-	bestValue = (potentialValue)+(pieceValue);
-    
-	
-	
-	//Edge table
-    
-	
-	//Corner ratio 
-	
-	  
-	  return bestValue;
+		bestValue = (potentialMoveValue)+(pieceValue)+(edgeListValue);  
+		return bestValue;
     }
   }
 }
