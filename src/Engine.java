@@ -127,6 +127,11 @@ public  class Engine {
       str += "\n";
     }
     str += "  a b c d e f g h\n";//bottom of the board
+	
+	
+	
+	
+	
     return str;
   }
 
@@ -162,12 +167,69 @@ public  class Engine {
   }
 
   private interface Heuristic {
-    public double evaluate(State _state); 
+    public double evaluate(State _state);
   }
 
   private class TestHeuristic implements Heuristic {
     public double evaluate(State _state) {
-      return .5;
+		
+		double bestValue = 0;
+		double potentialValue = 0;
+		double blackPieceCount = 0;
+		double pieceTotal = 0;
+		double pieceValue = 0;
+		
+		
+		double potVal=0;
+		
+		
+		ArrayList<State> children;
+		ArrayList<State> subchildren;
+		children = _state.getChildren(true);
+		
+		for(State child : children) {
+		
+			//checks for potential mobility(worth 1 point)		
+			subchildren = child.getChildren(true);
+			potVal = subchildren.size();
+			potentialValue = Math.max(potentialValue, potVal);
+			
+			//checks for pieces(worth 1/10 of a point)
+			double whitePieceCount = 0;
+			for(int row=0; row<8; row++) {
+				for(int col=0; col<8; col++) {
+					if(child.getPiece(row,col) != null) {
+						if (child.getPiece(row,col).isBlack()){
+							blackPieceCount++;
+						}
+						if (child.getPiece(row,col).isWhite()){
+							whitePieceCount++;
+						}
+						if (child.getPiece(row,col).isEmpty()) {
+							//str += "_|";
+						} 
+					}
+				}
+			}
+			pieceValue = Math.max(pieceTotal, whitePieceCount);
+		}
+		
+		
+		
+		
+		
+		
+	bestValue = (potentialValue)+(pieceValue);
+    
+	
+	
+	//Edge table
+    
+	
+	//Corner ratio 
+	
+	  
+	  return bestValue;
     }
   }
 }
