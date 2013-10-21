@@ -2,6 +2,8 @@ import java.util.ArrayList;
 
 public class State {
   Piece[][] board; 
+  
+  
   static final Boolean black = false;
   static final Boolean white = true;
 
@@ -265,6 +267,7 @@ public class State {
       return getPiece(loc.getX() + 1, loc.getY() - 1);
     }
   }
+  
 
   ArrayList<State> getChildren(Boolean color) { 
     ArrayList<State> children = new ArrayList<State>();

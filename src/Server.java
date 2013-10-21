@@ -34,10 +34,19 @@ public class Server {
         display = true;
         pw.println("OK");
       } else
-
-      if( p.parse(str) ) {
-        pw.println("OK");
+		
+	  if(str.equals("AI-AI")){
+		
+		pw.println("OK");
+	  }else
+	  
+	  
+      if( p.parse(str) ) {        
+		pw.println("OK");
+		//pw.println(*computer move*);
       }
+	  
+	  
       else {
         pw.println("ILLEGAL");
       }

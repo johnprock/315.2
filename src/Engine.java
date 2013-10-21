@@ -4,6 +4,8 @@ import java.util.ArrayList;
 public  class Engine {
   State state;
   Random rand;
+  
+  
 
   static final Boolean black = false;
   static final Boolean white = true;
@@ -16,15 +18,18 @@ public  class Engine {
 
   int depth;
   Heuristic heuristic;
+  MoveList moveList;
 
   Engine(Boolean _color) {
-    state = new State();
+    
+	state = new State();
     humanColor = _color;
     aiColor = !humanColor;
     turn = false;
     rand = new Random();
     
     heuristic = new TestHeuristic();
+	moveList = new AllMovesList();
     depth = 0;
   }
 
@@ -54,6 +59,8 @@ public  class Engine {
       if(state.isValidMove(p)) {
         state.addBlack(_loc.getX(), _loc.getY());
         turn = !turn;
+		
+		moveList.enterState(state);		
         return true;
       }
     } else { // move white player
@@ -61,13 +68,16 @@ public  class Engine {
       if(state.isValidMove(p)) {
         state.addWhite(_loc.getX(), _loc.getY());
         turn = !turn;
+		moveList.enterState(state);
         return true;
       }
     }
     return false;
   }
 
-
+  
+  
+  
   public Boolean aiMove() {
     Piece p;
     Location loc;
@@ -85,7 +95,8 @@ public  class Engine {
       }
     }
      
-    state = bestState;     
+    state = bestState;
+	moveList.enterState(state);	
     return true;
   }
 
@@ -168,6 +179,25 @@ public  class Engine {
 
   private interface Heuristic {
     public double evaluate(State _state);
+  }
+  
+  private interface MoveList{
+	public void enterState(State _state);
+	public State getState();
+  }
+  
+  private class AllMovesList implements MoveList{
+	ArrayList<State> allMoves = new ArrayList<State>();
+		
+	public void enterState(State state){
+		allMoves.add(state);
+	}
+	
+	public State getState(){
+		State state = allMoves.get(allMoves.size()-1);
+		return state;
+	}
+  
   }
 
   private class TestHeuristic implements Heuristic {
