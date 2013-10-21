@@ -33,6 +33,22 @@ public  class Engine {
     depth = 0;
   }
 
+
+  public void setDifficulty(int level) { 
+  // 0 for easy
+  // 1 for medium 
+  // 2 for hard
+    if(level == 0) {
+      heuristic = new EasyHeuristic();
+    }
+    else if(level == 1) {
+      depth = 1;
+    }
+    else if(level == 2) {
+      depth = 5;
+    }
+  }
+
   public Boolean isOver() {
     return state.isOver(turn);
   }
@@ -199,6 +215,12 @@ public  class Engine {
 	}
   
   }
+
+  private class EasyHeuristic implements Heuristic {
+      public double evaluate(State _state) {
+        return .5;
+      }
+ }
 
   private class TestHeuristic implements Heuristic {
     public double evaluate(State _state) {

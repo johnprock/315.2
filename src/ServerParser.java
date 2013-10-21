@@ -84,12 +84,15 @@ public class ServerParser extends Parser {
     String val = token.value;
 
     if(val.equals("EASY")) {
+      e.setDifficulty(0);
       ret = true;
     } else
     if(val.equals("MEDIUM")) {
+      e.setDifficulty(1);
       ret = true;
     } else
     if(val.equals("HARD")) {
+      e.setDifficulty(2);
       ret = true;
     }
 
