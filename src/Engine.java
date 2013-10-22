@@ -32,6 +32,11 @@ public  class Engine {
 	moveList = new AllMovesList();
     depth = 0;
   }
+  
+  public void undoMove(){
+	moveList.getState();
+  }
+  
 
 
   public void setDifficulty(int level) { 
@@ -210,10 +215,12 @@ public  class Engine {
 	}
 	
 	public State getState(){
-		State state = allMoves.get(allMoves.size()-1);
-		return state;
+		if (allMoves.size() < 2){
+			return allMoves.get(0);
+		}
+		else 
+			return allMoves.get(allMoves.size()-2);
 	}
-  
   }
 
   private class EasyHeuristic implements Heuristic {

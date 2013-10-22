@@ -179,6 +179,8 @@ public class State {
   private interface Command {
     public Piece get(Piece _piece);
   }
+  
+  
 
   private class Up implements Command {
     public Piece get(Piece _piece) {
@@ -268,6 +270,15 @@ public class State {
     }
   }
   
+  
+  public void printState(){
+	for (int row = 0; row<8;row++){
+		for (int col = 0;col<8;col++){
+			System.out.println("("+row+", "+col+") = "+ state.board[row][col]);
+		
+		}
+	}
+  }
 
   ArrayList<State> getChildren(Boolean color) { 
     ArrayList<State> children = new ArrayList<State>();
