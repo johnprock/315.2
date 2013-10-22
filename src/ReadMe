@@ -1,5 +1,6 @@
-How to use for the week 2 program 
-Compile:
+Project 2 week  3 develpment log
+How to use for the week 3 program 
+Compile
 javac Server.java
 javac Client.java
 Run the program:
@@ -7,24 +8,24 @@ java Server
 java Client
 Input data: 
 BLACK
+HUMAN-AI HARD   (for difficulty can choose EASY MEDIUM HARD)
 DISPLAY
 For move should be a 4 (whitespace in the middle)
 
 
-Milestone for week2 of project 2
-Ort. 8 
-Jose draws the  
-Yaofei Li start the Server and Client Socket
-Patrick start to do game engine design and logic
-Ort. 10
-Patrick finish the game state and logic
-Yaofei finished the Socket
-Ort. 13
-Patrick finished the parser
-Ort 14 
-Patrick fixed bug of display and implement AI for random move
+
+
+
+
+Milestone for week3 of project 2
+Ort. 17 
+Patrick start to do min-max function and finished it 
+Ort. 18
+Jose finished the heuristic function
+Yaofei Li start to do GUI and draw board done
+Ort. 21
+Jose add structure for UNDO 
+we finished the difficulty setting
 
 Meeting time 
-We met at lab time and meet though the Google video chat(Hangout)
-
-An image of our pivotal tracker log is included in the submission.
+We met at lab time and meet though the Google video chat(Hangout) at Ort.15 & 18 
