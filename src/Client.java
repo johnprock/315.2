@@ -2,8 +2,10 @@ import java.io.*;
 import java.net.Socket;
 import java.util.*;
 import java.net.UnknownHostException;
+
 public class Client{
 
+	Display d = new Display("test");
     
 
 	public static void main(String args[]){
