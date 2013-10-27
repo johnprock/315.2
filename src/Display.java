@@ -1,18 +1,17 @@
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
 public class Display extends JFrame {
 
   Board board;
   MenuBar menuBar;
-
   Display(String name) {
     super(name);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     board = new Board();
     menuBar  = new MenuBar();
-    
     setJMenuBar(menuBar);
     getContentPane().add(board, BorderLayout.CENTER);
 
@@ -100,16 +99,30 @@ public class Display extends JFrame {
     public void updateState(State _state) {
       state = _state;
     }
+
+
   }
 
 
-  private class MenuBar extends JMenuBar {
+  private class MenuBar extends JMenuBar{
     
     MenuBar() {
       super();
       JMenu menu = new JMenu("Options");
-      add(menu);
+	  add(menu);
+	  
+	  JMenu connect = new JMenu("connect");
+	  add(connect);
+	  JMenuItem connect1=new JMenuItem("connect   ");
+	 // connect.addActionListener(this);
+	  connect.add(connect1);
+	 // connectDialog connectD= new connectDialog(Board);
+	 // connectD.setVisible(true);
+	  // if(conD.yes){
+				// create new game
+				// restart();
+			// }
     }
   }
-}
 
+}
