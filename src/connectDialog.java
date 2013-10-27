@@ -37,10 +37,12 @@ public connectDialog(Frame owner)
 		getContentPane().add(noticeP);
 		getContentPane().add(textP);                          
 		getContentPane().add(buttonP);
-		Point p;
-		p=owner.getLocation();
-		int x=(int)p.getX()+200;
-		int y=(int)p.getY()+150;
+		//Point p;
+		//p=owner.getLocation();
+		//int x=(int)p.getX()+200;
+		//int y=(int)p.getY()+150;
+		int x=200;
+		int y=200;
 		this.setLocation(x,y);
 		setResizable(false);
 		pack();                                      

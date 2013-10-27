@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+//http://forum.codecall.net/topic/45301-jcombobox-simple-version/
 public class Display extends JFrame {
 
   Board board;
@@ -114,10 +115,10 @@ public class Display extends JFrame {
 	  JMenu connect = new JMenu("connect");
 	  add(connect);
 	  JMenuItem connect1=new JMenuItem("connect   ");
-	 // connect.addActionListener(this);
-	  connect.add(connect1);
-	 // connectDialog connectD= new connectDialog(Board);
-	 // connectD.setVisible(true);
+	 //connect.addActionListener(this);
+	 // connect.add(connect1);
+	//connectDialog connectD= new connectDialog;
+	 //connectD.setVisible(true);
 	  // if(conD.yes){
 				// create new game
 				// restart();
