@@ -108,7 +108,21 @@ public class Display extends JFrame {
     MenuBar() {
       super();
       JMenu menu = new JMenu("Options");
+
+      JMenuItem connectItem = new JMenuItem("Connect");
       add(menu);
+
+      JMenuItem typeItem = new JMenuItem("Choose Game Type");
+      add(menu);
+
+      JMenuItem moveItem = new JMenuItem("Move");
+      add(menu);
+
+
+      menu.add(connectItem);
+      menu.add(typeItem);
+      menu.add(moveItem);
+
     }
   }
 }
