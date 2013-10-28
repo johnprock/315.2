@@ -13,6 +13,7 @@ public abstract class Parser {
     Tokenizer t = new Tokenizer(_tokenizer);
     Token token = t.nextToken();
     if(token.value.startsWith(";")) {
+      pw.println("OK");
       return true;
     }
     else return false;

@@ -164,8 +164,33 @@ public class Display extends JFrame {
 
       start.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-          System.out.println(serverID);
-          client.connect("localhost", 8123);
+
+          client.connect(serverID, 8123);
+
+          if(black) {
+            client.write("BLACK");
+          }
+          else if(white) {
+            client.write("WHITE");
+          }
+
+          if(human) {
+            client.write("HUMAN-AI");
+          }
+          else if(ai) {
+            client.write("AI-AI");
+          }
+
+          if(easy) {
+            client.write("EASY");
+          }
+          else if(medium) {
+            client.write("MEDIUM");
+          }
+          else if(hard) {
+            client.write("HARD");
+          }
+
         }
       });
 

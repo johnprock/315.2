@@ -12,7 +12,7 @@ public class ServerParser extends Parser {
   }
 
   private Boolean parseExpr() {
-    return parseCommand(tokenizer) || parseMove(tokenizer) || parseComment(tokenizer);
+    return parseCommand(tokenizer) || parseMove(tokenizer) || parseComment(tokenizer) || parseDifficulty(tokenizer);
   }
 
   private Boolean parseCommand(Tokenizer _tokenizer) {
@@ -65,15 +65,8 @@ public class ServerParser extends Parser {
       server = tzer.nextToken();
       port = tzer.nextToken();
 
-      if(parseDifficulty(tzer)) {
-        difficulty1 = t.nextToken();
-        if(parseDifficulty(tzer)) {
-          difficulty2 = t.nextToken();
-          ret = true;
-        }
-      }
     }
- 
+    if(ret) pw.println("OK");
     return ret;
   }
 
@@ -95,7 +88,7 @@ public class ServerParser extends Parser {
       e.setDifficulty(2);
       ret = true;
     }
-
+    if(ret) pw.println("OK");
     return ret;
   }
 
