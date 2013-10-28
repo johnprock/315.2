@@ -14,6 +14,7 @@ public class Display extends JFrame {
 
     board = new Board();
     control = new Control();
+    client = new Client();
 
     
     getContentPane().add(board, BorderLayout.CENTER);
@@ -78,6 +79,8 @@ public class Display extends JFrame {
         }
       });
 
+      add(new JSeparator(SwingConstants.HORIZONTAL));
+
       // radio buttons for game type
       JRadioButton humanButton = new JRadioButton("Human vs AI");
       JRadioButton aiButton = new JRadioButton("AI vs AI");
@@ -89,15 +92,20 @@ public class Display extends JFrame {
 
       humanButton.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-          //Execute when button is pressed
+          human = true;
+          ai = false;
         }
       });
 
       aiButton.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
           //Execute when button is pressed
+          human = false;
+          ai = true;
         }
       });
+
+      add(new JSeparator(SwingConstants.HORIZONTAL));
 
       // radio buttons for difficulty
       JRadioButton easyButton = new JRadioButton("Easy");
@@ -114,29 +122,39 @@ public class Display extends JFrame {
       easyButton.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
           //Execute when button is pressed
+          easy = true;
+          medium = false;
+          hard = false;
         }
       });
 
       mediumButton.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
           //Execute when button is pressed
+          easy = false;
+          medium = true;
+          hard = false;
         }
       });
 
       hardButton.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
           //Execute when button is pressed
+          easy = false;
+          medium = false;
+          hard = true;
         }
       });
 
       // text field for server name or ip
-      JTextField textField = new JTextField("Server name or IP", 20);
+      // must press enter to save entered text
+      final JTextField textField = new JTextField("Server name or IP", 20);
       textField.setMaximumSize( textField.getPreferredSize() );
       add(textField);
 
       textField.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-          //Execute when button is pressed
+          serverID = textField.getText();
         }
       });
 
@@ -146,7 +164,8 @@ public class Display extends JFrame {
 
       start.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-          //Execute when button is pressed
+          System.out.println(serverID);
+          client.connect("localhost", 8123);
         }
       });
 
@@ -160,22 +179,42 @@ public class Display extends JFrame {
 
 
       // row field
-      JTextField rowField = new JTextField("Row", 20);
+      // must press enter
+      final JTextField rowField = new JTextField("Row", 20);
       rowField.setMaximumSize( rowField.getPreferredSize() );
       add(rowField);
 
+      rowField.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          row = rowField.getText();
+        }
+      });
+
       // col field
-      JTextField colField = new JTextField("Column", 20);
+      // must press enter
+      final JTextField colField = new JTextField("Column", 20);
       colField.setMaximumSize( colField.getPreferredSize() );
       add(colField);
+
+      colField.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          col = colField.getText();
+        }
+      });
 
       // move
       JButton move = new JButton("Move");
       add(move);
 
-      // text field for row and col move 
+      move.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          System.out.println("Row: " + row);
+          System.out.println("Col: " + col);
+        }
+      });
 
-      add(new JSeparator(SwingConstants.HORIZONTAL));
+
+
 
 
     }
