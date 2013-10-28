@@ -5,7 +5,6 @@ import java.net.UnknownHostException;
 
 public class Client{
 
-	Display d = new Display("test");
     
 	Socket socket;
     PrintWriter out;
@@ -44,28 +43,22 @@ public class Client{
 		}
 	
 	}
-	public static void main(String args[]){
-		
-		System.out.println("Server IP: ");
-		Scanner in = new Scanner(System.in);
-		final String host = in.nextLine();
-		//final String host = "localhost";
-		final int portNumber = 8123;
-	    Client client=new Client();
-		client.connect(host,portNumber);
 
-			// BufferedReader userInputBR = new BufferedReader(new InputStreamReader(System.in));
-			// String userInput = userInputBR.readLine();
+    // used to talk to the server
+	public String write(String message) {
+		String s = "no response";
+        try {
 
-			// out.println(userInput);
+		OutputStream os = socket.getOutputStream();
+        PrintWriter pw = new PrintWriter(os, true);
+        BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+  
+        pw.println(message);
+        s = br.readLine();
 
-			// System.out.println("server says:" + br.readLine());
-
-			// if ("exit".equalsIgnoreCase(userInput)) {
-				// socket.close();
-				// break;
-		    	// }
-	    	// }
-       
+        } catch (IOException err) {
+			err.printStackTrace();
+		}
+        return s;
 	}
 }

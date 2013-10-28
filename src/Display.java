@@ -7,6 +7,7 @@ public class Display extends JFrame {
   Board board;
   MenuBar menuBar;
   Control control;
+  Client client;
 
   Display(String name) {
     super(name);
@@ -218,5 +219,6 @@ public class Display extends JFrame {
       p.setVisible(true);
     }
   }
+
 }
 
