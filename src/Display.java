@@ -48,6 +48,7 @@ public class Display extends JFrame {
 
     Control() {
       super();
+      final JLabel response = new JLabel("...");
 
       setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
@@ -80,7 +81,9 @@ public class Display extends JFrame {
         }
       });
 
+      //-------------------------------------------//
       add(new JSeparator(SwingConstants.HORIZONTAL));
+      //-------------------------------------------//
 
       // radio buttons for game type
       JRadioButton humanButton = new JRadioButton("Human vs AI");
@@ -116,8 +119,9 @@ public class Display extends JFrame {
         }
       });
 
-
+      //------------------------------------------//
       add(new JSeparator(SwingConstants.HORIZONTAL));
+      //------------------------------------------//
 
       // radio buttons for difficulty
       JRadioButton easyButton = new JRadioButton("Easy");
@@ -255,6 +259,7 @@ public class Display extends JFrame {
             board.move(move, !black);
             board.repaint();
           }
+          response.setText(move);
         }
       });
 
@@ -269,7 +274,12 @@ public class Display extends JFrame {
         }
       });
 
-
+      //-------------------------------------------//
+      add(new JSeparator(SwingConstants.HORIZONTAL));
+      //-------------------------------------------//
+      add(new JLabel("Server Move"));
+      add(response);
+      
 
     }
   }
