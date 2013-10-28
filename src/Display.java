@@ -1,10 +1,12 @@
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
 public class Display extends JFrame {
 
   Board board;
   MenuBar menuBar;
+  Control control;
 
   Display(String name) {
     super(name);
@@ -12,13 +14,74 @@ public class Display extends JFrame {
 
     board = new Board();
     menuBar  = new MenuBar();
+    control = new Control();
+
     
     setJMenuBar(menuBar);
     getContentPane().add(board, BorderLayout.CENTER);
+    getContentPane().add(control, BorderLayout.LINE_END);
+    Dimension d = new Dimension(1000,1000);
+    setPreferredSize(d);
+
 
     pack();
     setVisible(true);
 
+  }
+
+  private class Control extends JPanel {
+
+    Control() {
+      super();
+
+      setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+
+
+      // title
+      add(new JLabel("Game Menu"));
+
+      // radio buttons for player color
+      JRadioButton blackButton = new JRadioButton("Black");
+      JRadioButton whiteButton = new JRadioButton("White");
+      ButtonGroup group1 = new ButtonGroup();
+      group1.add(blackButton);
+      group1.add(whiteButton);
+      add(whiteButton);
+      add(blackButton);
+
+      // radio buttons for game type
+      JRadioButton humanButton = new JRadioButton("Human vs AI");
+      JRadioButton aiButton = new JRadioButton("AI vs AI");
+      ButtonGroup group2 = new ButtonGroup();
+      group2.add(humanButton);
+      group2.add(aiButton);
+      add(humanButton);
+      add(aiButton);
+
+      // radio buttons for difficulty
+      JRadioButton easyButton = new JRadioButton("Easy");
+      JRadioButton mediumButton = new JRadioButton("Medium");
+      JRadioButton hardButton = new JRadioButton("Hard");
+      ButtonGroup group3 = new ButtonGroup();
+      group3.add(easyButton);
+      group3.add(mediumButton);
+      group3.add(hardButton);
+      add(easyButton);
+      add(mediumButton);
+      add(hardButton);
+
+      // text field for row and col move 
+
+
+      // begin game
+      JButton start = new JButton("Start Game");
+      add(start);
+
+      // move
+      JButton move = new JButton("Move");
+      add(move);
+
+    }
   }
 
   private class Board extends JComponent {
@@ -27,8 +90,8 @@ public class Display extends JFrame {
 
     Board() {
       super();
-      Dimension d = new Dimension(1000,1000);
-      setPreferredSize(d);
+    //  Dimension d = new Dimension(1000,1000);
+    //  setPreferredSize(d);
       state = new State();
     }
 
@@ -43,7 +106,10 @@ public class Display extends JFrame {
       for(int row=0; row<8; row++) {
         for(int col=0; col<8; col++) {
  
+          // draw square
           drawSquare(g, row*width, col*width, width);
+
+          // draw piece
           if(state.getPiece(row,col).isBlack()) {
             drawPiece(g, row*width, col*width, width, 1);
           }
@@ -108,21 +174,23 @@ public class Display extends JFrame {
     MenuBar() {
       super();
       JMenu menu = new JMenu("Options");
+      
 
-      JMenuItem connectItem = new JMenuItem("Connect");
+      JMenuItem newGameItem = new JMenuItem("New Game");
+      NewGameListener newGameListener = new NewGameListener();
+      newGameItem.addActionListener(newGameListener);
+
       add(menu);
+      menu.add(newGameItem);
 
-      JMenuItem typeItem = new JMenuItem("Choose Game Type");
-      add(menu);
+    }
+  }
 
-      JMenuItem moveItem = new JMenuItem("Move");
-      add(menu);
+  private class NewGameListener implements ActionListener {
 
-
-      menu.add(connectItem);
-      menu.add(typeItem);
-      menu.add(moveItem);
-
+    public void actionPerformed(ActionEvent e) {
+      JPanel p = new JPanel(new BorderLayout()); 
+      p.setVisible(true);
     }
   }
 }
