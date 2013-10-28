@@ -70,16 +70,41 @@ public class Display extends JFrame {
       add(mediumButton);
       add(hardButton);
 
-      // text field for row and col move 
-
+      // text field for server name or ip
+      JTextField textField = new JTextField("Server name or IP", 20);
+      textField.setMaximumSize( textField.getPreferredSize() );
+      add(textField);
 
       // begin game
       JButton start = new JButton("Start Game");
       add(start);
 
+      //----------------------------------------------//
+      add(new JSeparator(SwingConstants.HORIZONTAL));
+      //----------------------------------------------//
+
+      // title
+      add(new JLabel("Move Menu"));
+
+
+      // row field
+      JTextField rowField = new JTextField("Row", 20);
+      rowField.setMaximumSize( rowField.getPreferredSize() );
+      add(rowField);
+
+      // col field
+      JTextField colField = new JTextField("Column", 20);
+      colField.setMaximumSize( colField.getPreferredSize() );
+      add(colField);
+
       // move
       JButton move = new JButton("Move");
       add(move);
+
+      // text field for row and col move 
+
+      add(new JSeparator(SwingConstants.HORIZONTAL));
+
 
     }
   }
