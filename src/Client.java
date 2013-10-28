@@ -7,8 +7,8 @@ public class Client{
 
     
 	Socket socket;
-    PrintWriter out;
-    BufferedReader br;
+    public PrintWriter out;
+    public BufferedReader br;
 	
 	public void connect(String host, int portNumber){
 		String userInput;

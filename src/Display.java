@@ -270,7 +270,8 @@ public class Display extends JFrame {
       undo.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
           client.write("UNDO");
-
+          board.undo();
+          board.repaint();
         }
       });
 
