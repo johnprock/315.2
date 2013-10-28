@@ -17,7 +17,7 @@ public class Client{
 			socket = new Socket(host, portNumber);
 			br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			out = new PrintWriter(socket.getOutputStream(), true);
-			
+
 			System.out.println(br.readLine());
 			return;
 
@@ -30,7 +30,7 @@ public class Client{
 	}
 
     // used to talk to the server
-	public void write(String message) {
+	public String write(String message) {
 		String s = "no response";
         try {
 
@@ -38,10 +38,12 @@ public class Client{
         out.println(message);
 
         System.out.println(message);
-        System.out.println(br.readLine());
+        s = br.readLine();
 
         } catch (IOException err) {
 			err.printStackTrace();
 		}
+		System.out.println(s);
+		return s;
 	}
 }

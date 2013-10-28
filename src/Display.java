@@ -235,12 +235,14 @@ public class Display extends JFrame {
         public void actionPerformed(ActionEvent e) {
           System.out.println("Row: " + row);
           System.out.println("Col: " + col);
+
+          String move = client.write(row + " " + col);
+          // update client state
+          board.move(row + " " + col, black);
+          board.move(move, !black);
+          board.repaint();
         }
       });
-
-
-
-
 
     }
   }
@@ -282,6 +284,30 @@ public class Display extends JFrame {
           }
         }
       } 
+      // add letters
+      g.drawString("a", width*8, width*1);
+      g.drawString("b", width*8, width*2);
+      g.drawString("c", width*8, width*3);
+      g.drawString("d", width*8, width*4);
+      g.drawString("e", width*8, width*5);
+      g.drawString("f", width*8, width*6);
+      g.drawString("g", width*8, width*7);
+      g.drawString("h", width*8, width*8);
+
+      int width1;
+      width1 = width;
+      width = width+2;
+      g.drawString("1", width1*0,  width*8);
+      g.drawString("2", width1*1, width*8);
+      g.drawString("3", width1*2, width*8);
+      g.drawString("4", width1*3, width*8);
+      g.drawString("5", width1*4, width*8);
+      g.drawString("6", width1*5, width*8);
+      g.drawString("7", width1*6, width*8);
+      g.drawString("8", width1*7, width*8);
+
+
+      
 
     }
 
@@ -324,8 +350,9 @@ public class Display extends JFrame {
         g.fill3DRect(x, y+width-borderWidth, width, borderWidth, false);
     }
 
-    public void updateState(State _state) {
-      state = _state;
+    public void move(String move, Boolean black) {
+      ClientParser p = new ClientParser();
+      p.parseClientMove(move, state, black);          
     }
   }
 

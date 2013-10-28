@@ -40,7 +40,7 @@ public class Server {
 	  }else
 	  
 	  
-    if( p.parse(str) ) {        
+    if( p.parse(str) ) {      
 		    //pw.println(*computer move*);
         // response handled by parser
     }

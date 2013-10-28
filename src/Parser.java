@@ -38,7 +38,6 @@ public abstract class Parser {
           String rows = Integer.toString(lastLoc.getX()+1);
           String cols = reverseConvertCol(lastLoc.getY());
            
-          pw.println("OK");
           pw.println(cols + " " + rows);
           return true;
         }
