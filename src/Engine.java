@@ -5,8 +5,6 @@ public  class Engine {
   State state;
   Random rand;
   
-  
-
   static final Boolean black = false;
   static final Boolean white = true;
 
@@ -18,21 +16,25 @@ public  class Engine {
 
   int depth;
   Heuristic heuristic;
-  MoveList moveList;
+  ArrayList<State> history;
 
   Engine(Boolean _color) {
     
-	state = new State();
+    state = new State();
     humanColor = _color;
     aiColor = !humanColor;
     turn = false;
     rand = new Random();
-    
+    history = new ArrayList<State>();
+
     heuristic = new TestHeuristic();
-	moveList = new AllMovesList();
+
     depth = 0;
   }
 
+  public Location lastMove() {
+    return state.lastMove;
+  }
 
   public void setDifficulty(int level) { 
   // 0 for easy
@@ -74,17 +76,17 @@ public  class Engine {
       Piece p = new BlackPiece(_loc);
       if(state.isValidMove(p)) {
         state.addBlack(_loc.getX(), _loc.getY());
+        history.add(new State(state));
         turn = !turn;
 		
-		moveList.enterState(state);		
         return true;
       }
     } else { // move white player
       Piece p = new WhitePiece(_loc);
       if(state.isValidMove(p)) {
         state.addWhite(_loc.getX(), _loc.getY());
+        history.add(new State(state));
         turn = !turn;
-		moveList.enterState(state);
         return true;
       }
     }
@@ -112,7 +114,7 @@ public  class Engine {
     }
      
     state = bestState;
-	moveList.enterState(state);	
+    history.add(new State(state));
     return true;
   }
 
@@ -197,25 +199,6 @@ public  class Engine {
     public double evaluate(State _state);
   }
   
-  private interface MoveList{
-	public void enterState(State _state);
-	public State getState();
-  }
-  
-  private class AllMovesList implements MoveList{
-	ArrayList<State> allMoves = new ArrayList<State>();
-		
-	public void enterState(State state){
-		allMoves.add(state);
-	}
-	
-	public State getState(){
-		State state = allMoves.get(allMoves.size()-1);
-		return state;
-	}
-  
-  }
-
   private class EasyHeuristic implements Heuristic {
       public double evaluate(State _state) {
         return .5;

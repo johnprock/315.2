@@ -1,7 +1,11 @@
+import java.io.*;
+import java.net.*;
+
 public abstract class Parser {
 
   Tokenizer tokenizer;
   public Engine e;
+  public PrintWriter pw;
 
   public abstract Boolean parse(String _str);
 
@@ -28,7 +32,17 @@ public abstract class Parser {
         x--;
         int y = convertCol(col.value);
         Location loc = new Location(x,y);
-        return e.move(loc);
+        if(e.move(loc)) {
+          Location lastLoc = e.lastMove();
+          String rows = Integer.toString(lastLoc.getX()+1);
+          String cols = reverseConvertCol(lastLoc.getY());
+           
+          pw.println("OK");
+          pw.println(cols + " " + rows);
+          return true;
+        }
+        return false;
+
       }
     }
     return false;
@@ -76,5 +90,17 @@ public abstract class Parser {
     if(_str.equals("g")) return 6;
     if(_str.equals("h")) return 7;
     return -1;
+  }
+
+  protected String reverseConvertCol(Integer i) {
+    if(i == 0) return "a";
+    if(i == 1) return "b";
+    if(i == 2) return "c";
+    if(i == 3) return "d";
+    if(i == 4) return "e";
+    if(i == 5) return "f";
+    if(i == 6) return "g";
+    if(i == 7) return "h";
+    return "-1";
   }
 }

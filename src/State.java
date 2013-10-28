@@ -2,8 +2,8 @@ import java.util.ArrayList;
 
 public class State {
   Piece[][] board; 
-  
-  
+  public Location lastMove;
+
   static final Boolean black = false;
   static final Boolean white = true;
 
@@ -60,6 +60,9 @@ public class State {
 
     Piece p = getPiece(_x,_y);
     multiFlip(p);
+
+    lastMove = loc;
+    
   }
 
   public void addWhite(int _x, int _y) {
@@ -68,6 +71,8 @@ public class State {
 
     Piece p = getPiece(_x,_y);
     multiFlip(p);
+
+    lastMove = loc;
   }
 
   public Boolean isValidMove(Piece _piece) {
@@ -302,5 +307,6 @@ public class State {
     }
     return children; 
   }
+   
 }
 

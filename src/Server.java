@@ -21,41 +21,40 @@ public class Server {
     BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
     pw.println("WELCOME");
+    p.pw = pw;
 
     // main loop
     while(true) {
       str = br.readLine();
 
-      if(str.equals("EXIT")) {
-        break;
-      } else
+    if(str.equals("EXIT")) {
+      break;
+    } else
       
-      if(str.equals("DISPLAY")) {
-        display = true;
-        pw.println("OK");
-      } else
+    if(str.equals("DISPLAY")) {
+      display = true;
+    } else
 		
 	  if(str.equals("AI-AI")){
-		
-		pw.println("OK");
+		  pw.println("OK");
 	  }else
 	  
 	  
-      if( p.parse(str) ) {        
-		pw.println("OK");
-		//pw.println(*computer move*);
-      }
+    if( p.parse(str) ) {        
+		    //pw.println(*computer move*);
+        // response handled by parser
+    }
 	  
 	  
-      else {
-        pw.println("ILLEGAL");
-      }
+    else {
+      pw.println("ILLEGAL");
+    }
     
-      if(display) {
-          // draw board
-           if(p.e == null) pw.println("Can't display yet, pick a color");
-           else pw.println(p.e.draw());
-       }
+    if(display) {
+      // draw board
+      if(p.e == null) pw.println("Can't display yet, pick a color");
+      else pw.println(p.e.draw());
+    }
       
       
     }
