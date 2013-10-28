@@ -5,7 +5,6 @@ import javax.swing.*;
 public class Display extends JFrame {
 
   Board board;
-  MenuBar menuBar;
   Control control;
   Client client;
 
@@ -14,11 +13,9 @@ public class Display extends JFrame {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     board = new Board();
-    menuBar  = new MenuBar();
     control = new Control();
 
     
-    setJMenuBar(menuBar);
     getContentPane().add(board, BorderLayout.CENTER);
     getContentPane().add(control, BorderLayout.LINE_END);
     Dimension d = new Dimension(1000,1000);
@@ -31,6 +28,21 @@ public class Display extends JFrame {
   }
 
   private class Control extends JPanel {
+    // data used to communicate with server
+    Boolean black;
+    Boolean white;
+
+    Boolean human;
+    Boolean ai;
+
+    Boolean easy;
+    Boolean medium;
+    Boolean hard;
+
+    String serverID;
+
+    String row;
+    String col;
 
     Control() {
       super();
@@ -50,6 +62,22 @@ public class Display extends JFrame {
       add(whiteButton);
       add(blackButton);
 
+      blackButton.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          //Execute when button is pressed
+          black = true;
+          white = false;
+        }
+      });
+
+      whiteButton.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          //Execute when button is pressed
+          black = false;
+          white = true;
+        }
+      });
+
       // radio buttons for game type
       JRadioButton humanButton = new JRadioButton("Human vs AI");
       JRadioButton aiButton = new JRadioButton("AI vs AI");
@@ -58,6 +86,18 @@ public class Display extends JFrame {
       group2.add(aiButton);
       add(humanButton);
       add(aiButton);
+
+      humanButton.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          //Execute when button is pressed
+        }
+      });
+
+      aiButton.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          //Execute when button is pressed
+        }
+      });
 
       // radio buttons for difficulty
       JRadioButton easyButton = new JRadioButton("Easy");
@@ -71,14 +111,45 @@ public class Display extends JFrame {
       add(mediumButton);
       add(hardButton);
 
+      easyButton.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          //Execute when button is pressed
+        }
+      });
+
+      mediumButton.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          //Execute when button is pressed
+        }
+      });
+
+      hardButton.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          //Execute when button is pressed
+        }
+      });
+
       // text field for server name or ip
       JTextField textField = new JTextField("Server name or IP", 20);
       textField.setMaximumSize( textField.getPreferredSize() );
       add(textField);
 
+      textField.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          //Execute when button is pressed
+        }
+      });
+
       // begin game
       JButton start = new JButton("Start Game");
       add(start);
+
+      start.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          //Execute when button is pressed
+        }
+      });
+
 
       //----------------------------------------------//
       add(new JSeparator(SwingConstants.HORIZONTAL));
@@ -191,32 +262,6 @@ public class Display extends JFrame {
 
     public void updateState(State _state) {
       state = _state;
-    }
-  }
-
-
-  private class MenuBar extends JMenuBar {
-    
-    MenuBar() {
-      super();
-      JMenu menu = new JMenu("Options");
-      
-
-      JMenuItem newGameItem = new JMenuItem("New Game");
-      NewGameListener newGameListener = new NewGameListener();
-      newGameItem.addActionListener(newGameListener);
-
-      add(menu);
-      menu.add(newGameItem);
-
-    }
-  }
-
-  private class NewGameListener implements ActionListener {
-
-    public void actionPerformed(ActionEvent e) {
-      JPanel p = new JPanel(new BorderLayout()); 
-      p.setVisible(true);
     }
   }
 
