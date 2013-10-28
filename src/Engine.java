@@ -32,6 +32,12 @@ public  class Engine {
     depth = 0;
   }
 
+  public void undo() {
+    if(history.size() >=2) {
+      state = history.get(history.size() - 2);
+    }
+  }
+
   public Location lastMove() {
     return state.lastMove;
   }

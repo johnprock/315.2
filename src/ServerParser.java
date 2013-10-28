@@ -49,6 +49,7 @@ public class ServerParser extends Parser {
     } else
 
     if(val.equals("UNDO")) {
+      e.undo();
       ret = true;
     } else
    

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Test {
 
   public static void main(String args[]){
-    Display d = new Display("test");	
+    Display d = new Display("Reversi");	
   }
 }
 

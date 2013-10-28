@@ -19,7 +19,7 @@ public class Display extends JFrame {
     
     getContentPane().add(board, BorderLayout.CENTER);
     getContentPane().add(control, BorderLayout.LINE_END);
-    Dimension d = new Dimension(1000,1000);
+    Dimension d = new Dimension(800,600);
     setPreferredSize(d);
 
 
@@ -41,6 +41,7 @@ public class Display extends JFrame {
     Boolean hard;
 
     String serverID;
+    String optionalServerID;
 
     String row;
     String col;
@@ -104,6 +105,17 @@ public class Display extends JFrame {
           ai = true;
         }
       });
+
+      final JTextField optionalServer = new JTextField("Optional AI Server IP", 20);
+      optionalServer.setMaximumSize( optionalServer.getPreferredSize() );
+      add(optionalServer);
+
+      optionalServer.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          optionalServerID = optionalServer.getText();
+        }
+      });
+
 
       add(new JSeparator(SwingConstants.HORIZONTAL));
 
@@ -238,17 +250,33 @@ public class Display extends JFrame {
 
           String move = client.write(row + " " + col);
           // update client state
-          board.move(row + " " + col, black);
-          board.move(move, !black);
-          board.repaint();
+          if( !move.equals("ILLEGAL") ) { 
+            board.move(row + " " + col, black);
+            board.move(move, !black);
+            board.repaint();
+          }
         }
       });
+
+      // undo
+      JButton undo = new JButton("Undo");
+      add(undo);
+
+      undo.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          client.write("UNDO");
+
+        }
+      });
+
+
 
     }
   }
 
   private class Board extends JComponent {
 
+    State undoState;
     State state;    
 
     Board() {
@@ -351,10 +379,14 @@ public class Display extends JFrame {
     }
 
     public void move(String move, Boolean black) {
+      undoState = new State(state);
       ClientParser p = new ClientParser();
       p.parseClientMove(move, state, black);          
     }
-  }
 
+    public void undo() {
+      state = undoState;
+    }
+  }
 }
 
